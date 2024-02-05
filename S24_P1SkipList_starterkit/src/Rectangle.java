@@ -86,7 +86,22 @@ public class Rectangle {
      * @return true if the rectangle intersects with rec, false if not
      */
     public boolean intersect(Rectangle r2) {
-        return false;
+        
+        if (this.isInvalid() || r2.isInvalid()) {
+            return false;
+        }
+              
+        // One is too far left
+        if (this.right() <= r2.left() || r2.right() <= this.left()) {
+            return false;
+        }
+        
+        // One is too far down
+        if (r2.bottom() <= this.top() || this.bottom() <= r2.top()) {
+            return false;
+        }
+        
+        return true;
 
     }
 
@@ -99,8 +114,14 @@ public class Rectangle {
      * @return true if the rectangle has the same coordinates as rec, false if
      *         not
      */
-    public boolean equals(Object rec) {
-        return false;
+    public boolean equals(Rectangle rec) {
+        // Need same x, same y, same w, same h
+        boolean sameX = this.getxCoordinate() == rec.getxCoordinate();
+        boolean sameY = this.getyCoordinate() == rec.getyCoordinate();
+        boolean sameW = this.getWidth() == rec.getWidth();
+        boolean sameH = this.getHeight() == rec.getHeight();
+        
+        return (sameX && sameY && sameW && sameH);
     }
 
 
@@ -112,7 +133,12 @@ public class Rectangle {
      *         rectangle
      */
     public String toString() {
-        return null;
+        int x = this.getxCoordinate();
+        int y = this.getyCoordinate();
+        int w = this.getWidth();
+        int h = this.getHeight();
+               
+        return String.format("%d, %d, %d, %d", x, y, w, h);
     }
 
 
@@ -122,6 +148,46 @@ public class Rectangle {
      * @return true if the rectangle has invalid parameters, false if not
      */
     public boolean isInvalid() {
-        return false;
+        // Valid Rectangles sit entirely in the 1024 by 1024 "world box"
+        // A rectangle is invalid if any portion of it is outside this box
+        int x = this.getxCoordinate();
+        int y = this.getyCoordinate();
+        int w = this.getWidth();
+        int h = this.getHeight();
+        
+        // Must be all positive
+        if (x < 0 || y < 0 || w <= 0 || h <= 0) {
+            return true;
+        }
+        
+        boolean leftValid = this.insideWorldBox(x);
+        boolean topValid = this.insideWorldBox(y);
+        boolean rightValid = this.insideWorldBox(x+w);
+        boolean bottomValid = this.insideWorldBox(y+h);
+        
+        boolean valid = leftValid && topValid && rightValid && bottomValid;
+        
+        return !valid;
     }
+    
+    private boolean insideWorldBox(int a) {
+        return (a >= 0) && (a <= 1024);
+    }
+    
+    private int left() {
+        return getxCoordinate();
+    }
+    
+    private int top() {
+        return getyCoordinate();
+    }
+    
+    private int right() {
+        return getxCoordinate() + getWidth();
+    }
+    
+    private int bottom() {
+        return getyCoordinate() + getHeight();
+    }
+    
 }
