@@ -9,13 +9,13 @@
  */
 public class Rectangle {
     // the x coordinate of the rectangle
-    private int xCoordinate;
+    private int x;
     // the y coordinate of the rectangle
-    private int yCoordinate;
+    private int y;
     // the distance from the x coordinate the rectangle spans
-    private int width;
+    private int w;
     // the distance from the y coordinate the rectangle spans
-    private int height;
+    private int h;
 
     /**
      * Creates an object with the values to the parameters given in the
@@ -31,10 +31,10 @@ public class Rectangle {
      *            height of the rectangle
      */
     public Rectangle(int x, int y, int w, int h) {
-        xCoordinate = x;
-        yCoordinate = y;
-        width = w;
-        height = h;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
     }
 
 
@@ -43,8 +43,8 @@ public class Rectangle {
      *
      * @return the x coordinate
      */
-    public int getxCoordinate() {
-        return xCoordinate;
+    public int getX() {
+        return x;
     }
 
 
@@ -53,8 +53,8 @@ public class Rectangle {
      *
      * @return the y coordinate
      */
-    public int getyCoordinate() {
-        return yCoordinate;
+    public int getY() {
+        return y;
     }
 
 
@@ -63,8 +63,8 @@ public class Rectangle {
      *
      * @return the width
      */
-    public int getWidth() {
-        return width;
+    public int getW() {
+        return w;
     }
 
 
@@ -73,8 +73,8 @@ public class Rectangle {
      *
      * @return the height
      */
-    public int getHeight() {
-        return height;
+    public int getH() {
+        return h;
     }
 
 
@@ -116,12 +116,24 @@ public class Rectangle {
      */
     public boolean equals(Rectangle rec) {
         // Need same x, same y, same w, same h
-        boolean sameX = this.getxCoordinate() == rec.getxCoordinate();
-        boolean sameY = this.getyCoordinate() == rec.getyCoordinate();
-        boolean sameW = this.getWidth() == rec.getWidth();
-        boolean sameH = this.getHeight() == rec.getHeight();
+        boolean sameX = this.getX() == rec.getX();
+        boolean sameY = this.getY() == rec.getY();
+        boolean sameW = this.getW() == rec.getW();
+        boolean sameH = this.getH() == rec.getH();
         
         return (sameX && sameY && sameW && sameH);
+    }
+    
+    /**
+     * Checks, if the invoking rectangle has the same coordinates as rec.
+     * 
+     * @param rec
+     *            the rectangle parameter
+     * @return true if the rectangle has the same coordinates as rec, false if
+     *         not
+     */
+    public boolean equals(Object rec) {
+        return false;
     }
 
 
@@ -132,12 +144,7 @@ public class Rectangle {
      * @return a human readable string containing information about the
      *         rectangle
      */
-    public String toString() {
-        int x = this.getxCoordinate();
-        int y = this.getyCoordinate();
-        int w = this.getWidth();
-        int h = this.getHeight();
-               
+    public String toString() {               
         return String.format("%d, %d, %d, %d", x, y, w, h);
     }
 
@@ -149,21 +156,16 @@ public class Rectangle {
      */
     public boolean isInvalid() {
         // Valid Rectangles sit entirely in the 1024 by 1024 "world box"
-        // A rectangle is invalid if any portion of it is outside this box
-        int x = this.getxCoordinate();
-        int y = this.getyCoordinate();
-        int w = this.getWidth();
-        int h = this.getHeight();
-        
+        // A rectangle is invalid if any portion of it is outside this box        
         // Must be all positive
         if (x < 0 || y < 0 || w <= 0 || h <= 0) {
             return true;
         }
         
-        boolean leftValid = this.insideWorldBox(x);
-        boolean topValid = this.insideWorldBox(y);
-        boolean rightValid = this.insideWorldBox(x+w);
-        boolean bottomValid = this.insideWorldBox(y+h);
+        boolean leftValid = insideWorldBox(left());
+        boolean topValid = insideWorldBox(top());
+        boolean rightValid = insideWorldBox(right());
+        boolean bottomValid = insideWorldBox(bottom());
         
         boolean valid = leftValid && topValid && rightValid && bottomValid;
         
@@ -175,19 +177,19 @@ public class Rectangle {
     }
     
     private int left() {
-        return getxCoordinate();
+        return x;
     }
     
     private int top() {
-        return getyCoordinate();
+        return y;
     }
     
     private int right() {
-        return getxCoordinate() + getWidth();
+        return x + w;
     }
     
     private int bottom() {
-        return getyCoordinate() + getHeight();
+        return y + h;
     }
     
 }
