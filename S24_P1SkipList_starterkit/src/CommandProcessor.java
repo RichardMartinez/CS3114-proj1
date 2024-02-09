@@ -53,6 +53,7 @@ public class CommandProcessor {
         // their Integer equivalent, trimming the whitespace
         if (command.equals("insert")) {
             //Calls insert
+            // data.insert();
         }
         // calls the appropriate remove method based on the
         // number of white space delimited strings in the line

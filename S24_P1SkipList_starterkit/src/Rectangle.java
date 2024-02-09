@@ -86,21 +86,33 @@ public class Rectangle {
      * @return true if the rectangle intersects with rec, false if not
      */
     public boolean intersect(Rectangle r2) {
-        
-        if (this.isInvalid() || r2.isInvalid()) {
+        // One is invalid
+        if (this.isInvalid()) {
             return false;
         }
-              
+        
+        if (r2.isInvalid()) {
+            return false;
+        }
+        
         // One is too far left
-        if (this.right() <= r2.left() || r2.right() <= this.left()) {
+        if (this.right() <= r2.left()) {
             return false;
         }
         
+        if (r2.right() <= this.left()) {
+            return false;
+        }
+             
         // One is too far down
-        if (r2.bottom() <= this.top() || this.bottom() <= r2.top()) {
+        if (r2.bottom() <= this.top()) {
             return false;
         }
         
+        // TODO: Return not (!) this
+        if (this.bottom() <= r2.top()) {
+            return false;
+        }        
         return true;
 
     }
@@ -158,7 +170,19 @@ public class Rectangle {
         // Valid Rectangles sit entirely in the 1024 by 1024 "world box"
         // A rectangle is invalid if any portion of it is outside this box        
         // Must be all positive
-        if (x < 0 || y < 0 || w <= 0 || h <= 0) {
+        if (x < 0) {
+            return true;
+        }
+        
+        if (y < 0) {
+            return true;
+        }
+        
+        if (w <= 0) {
+            return true;
+        }
+        
+        if (h <= 0) {
             return true;
         }
         

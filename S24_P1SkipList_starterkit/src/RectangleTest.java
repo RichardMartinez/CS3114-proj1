@@ -103,6 +103,10 @@ public class RectangleTest extends TestCase {
         // Bottom
         rec = new Rectangle(10, 1000, 5, 25);
         assertTrue(rec.isInvalid());
+        
+        // Coordinates are greater than 0, but outside world box
+        rec = new Rectangle(2000, 2000, 5, 5);
+        assertTrue(rec.isInvalid());
     }
     
     public void testIntersect() {
@@ -155,6 +159,12 @@ public class RectangleTest extends TestCase {
         
         rec = new Rectangle(10, 15, 5, 5);
         rec2 = new Rectangle(10, 10, 5, 5);
+        assertFalse(rec.intersect(rec2));
+        assertFalse(rec2.intersect(rec));
+        
+        // rec is invalid, but they would otherwise intersect
+        rec = new Rectangle(-5, -5, 10, 10);
+        rec2 = new Rectangle(0, 0, 5, 5);
         assertFalse(rec.intersect(rec2));
         assertFalse(rec2.intersect(rec));
     } 
