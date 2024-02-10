@@ -59,6 +59,24 @@ public class SkipListTest extends TestCase {
 	}
 	
     // TODO: implement more tests
+	
+	public void testInsert() {
+	    // Reset Testable Random
+	    //TestableRandom.setNextBooleans(null);
+	    
+	    // sl is a default constructed SkipList
+	    Rectangle rec = new Rectangle(10, 10, 5, 5);
+	    String name = "HelloWorld";
+	    KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+	    sl.insert(pair);
+	    
+	    rec = new Rectangle(20, 20, 5, 5);
+        name = "HelloWorld2";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+	       
+	    sl.dump();
+	}
     
 
 }

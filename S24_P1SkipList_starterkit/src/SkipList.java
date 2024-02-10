@@ -149,10 +149,46 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
      * Prints out the SkipList in a human readable format to the console.
      */
     public void dump() {
-        System.out.println("SkipList dump: ");
+        System.out.println("SkipList dump:");
         
+        // Start at head
+        SkipNode x = head;
         
-  
+        String out = "";
+        // Only go at level 0
+        while (x.forward[0] != null) {
+            // Print x   
+            if (x.element().getValue() != null) {
+                out = String.format("Node with depth %d, Value (%s, %s)", 
+                    x.level, x.element().getKey(), x.element().getValue());
+            }
+            else {
+                out = String.format("Node with depth %d, Value null", 
+                    x.level);
+            }
+            
+            System.out.println(out);
+            
+            // Advance
+            x = x.forward[0];
+        }
+        
+        // Print x last time
+        if (x.element().getValue() != null) {
+            out = String.format("Node with depth %d, Value (%s, %s)", 
+                x.level, x.element().getKey(), x.element().getValue());
+        }
+        else {
+            out = String.format("Node with depth %d, Value null", 
+                x.level);
+        }
+        
+        System.out.println(out);
+        
+        // Print size
+        out = String.format("SkipList size is: %d", 
+            size);
+        System.out.println(out);
     }
 
     /**
@@ -198,11 +234,11 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
             return pair;
         }
         
-        public String toString() {
-            // TODO
-            return "";
-            //return String.format("%d, %d, %d, %d", x, y, w, h);;
-        }
+//        public String toString() {
+//            //
+//            return "";
+//            //return String.format("%d, %d, %d, %d", x, y, w, h);;
+//        }
 
     }
     
