@@ -8,7 +8,7 @@ import student.TestableRandom;
  * This class implements SkipList data structure and contains an inner SkipNode
  * class which the SkipList will make an array of to store data.
  * 
- * @author CS Staff
+ * @author CS Staff and OpenDSA 15.01
  * 
  * @version 2024-01-22
  * @param <K>
@@ -20,6 +20,7 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
     private SkipNode head; // First element (Sentinel Node)
     private int size; // number of entries in the Skip List
     private Random rng;
+    private int level;
 
     /**
      * Initializes the fields head, size and level
@@ -28,6 +29,7 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
         head = new SkipNode(null, 0);
         size = 0;
         this.rng = new TestableRandom();
+        level = -1;
     }
 
     /** returns a random level (using geometric distribution), minimum of 1 */
@@ -70,7 +72,30 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
      */
     @SuppressWarnings("unchecked")
     public void insert(KVPair<K, V> it) {
+        int newLevel = randomLevel(); // New node's level
+        if (newLevel > level) { // If new node is deeper
+            adjustHead(newLevel);  // extend header list
+        }
         
+        // Track the end of each level
+        SkipNode[] update = (SkipNode[])Array.newInstance(
+            SkipList.SkipNode.class, level + 1);
+        
+        // Start at header
+        SkipNode x = head;
+        for (int i = level; i >= 0; i--) {
+            while ((x.forward[i] != null) && (x.forward[i].element().getKey().compareTo(it.getKey()) < 0)) {
+                x = x.forward[i];
+            }
+            update[i] = x; // Track end at level i
+        }
+        
+        x = new SkipNode(it, newLevel);
+        for (int i = 0; i <= newLevel; i++) {
+            x.forward[i] = update[i].forward[i];  // Who x points to
+            update[i].forward[i] = x;  // Who points to x
+        }
+        size++;
     }
 
 
@@ -83,7 +108,13 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
      */
     @SuppressWarnings("unchecked")
     public void adjustHead(int newLevel) {
-        
+        SkipNode oldHead = head;
+        KVPair<K, V> pair = new KVPair<K, V>(null, null);
+        head = new SkipNode(pair, newLevel);
+        for (int i = 0; i <= level; i++) {
+            head.forward[i] = oldHead.forward[i];
+        }
+        level = newLevel;
     }
 
 
@@ -118,6 +149,9 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
      * Prints out the SkipList in a human readable format to the console.
      */
     public void dump() {
+        System.out.println("SkipList dump: ");
+        
+        
   
     }
 
@@ -162,6 +196,12 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
          */
         public KVPair<K, V> element() {
             return pair;
+        }
+        
+        public String toString() {
+            // TODO
+            return "";
+            //return String.format("%d, %d, %d, %d", x, y, w, h);;
         }
 
     }
