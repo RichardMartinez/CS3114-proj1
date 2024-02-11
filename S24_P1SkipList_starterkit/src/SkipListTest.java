@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.junit.Test;
@@ -172,7 +173,7 @@ public class SkipListTest extends TestCase {
 	 * Test the hasNext method of the iterator
 	 */
 	public void testIteratorHasNext() {
-	 // Make next levels: 3, 2
+	    // Make next levels: 3, 2
         TestableRandom.setNextBooleans(true, true, false, true, false);
         
         // sl is a default constructed SkipList
@@ -203,5 +204,44 @@ public class SkipListTest extends TestCase {
         assertFalse(hasNext);
 	}
     
+	/**
+	 * Test the search method
+	 */
+	public void testSearch() {
+	    // Reset Random
+	    TestableRandom.setNextBooleans(null);
+	    
+	    Rectangle rec;
+	    String name;
+	    KVPair<String, Rectangle> pair;
+	    
+	    rec = new Rectangle(10, 10, 15, 15);
+        name = "a";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(1, 2, 3, 4);
+        name = "b";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(50, 21, 52, 1);
+        name = "a";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        ArrayList<KVPair<String, Rectangle>> list = sl.search("a");
+        
+        assertEquals(list.size(), 2);
+        
+        Iterator<KVPair<String, Rectangle>> it = list.iterator();
+        KVPair<String, Rectangle> elem;
+        elem = it.next();
+        assertEquals(elem.getKey(), "a");
+        elem = it.next();
+        assertEquals(elem.getKey(), "a");
+        
+        assertFalse(it.hasNext());
+	}
 
 }

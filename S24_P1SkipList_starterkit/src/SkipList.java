@@ -39,10 +39,10 @@ implements Iterable<KVPair<K, V>> {
 	// this method at this time, we keep this
     // publicly accessible and testable.  
 	public int randomLevel() {
-		int level = 1;
+		int temp = 1;
 		while (rng.nextBoolean()) 
-			level++;
-		return level;
+			temp++;
+		return temp;
 	}
 
 
@@ -53,7 +53,25 @@ implements Iterable<KVPair<K, V>> {
      *            key to be searched for
      */
     public ArrayList<KVPair<K, V>> search(K key) {
-        return null;
+        // Return a list of all nodes with the
+        // specified key
+        
+        ArrayList<KVPair<K, V>> list = new ArrayList<KVPair<K, V>>();
+        
+        // Start at the head
+        SkipNode x = head;
+        
+        while (x != null) {
+            if (x.element().getKey() == key) {
+                // Add it to the list
+                list.add(x.element());
+            }
+            
+            // Advance
+            x = x.forward[0];
+        }
+        
+        return list;
     }
 
 
@@ -86,9 +104,9 @@ implements Iterable<KVPair<K, V>> {
         // Start at header
         SkipNode x = head;
         for (int i = level; i >= 0; i--) {
-            boolean notNull = (x.forward[i] != null);
-            boolean lessThanNext = (x.forward[i].element().getKey().compareTo(it.getKey()) < 0);
-            while (notNull && lessThanNext) {
+            while ((x.forward[i] != null)
+                && (x.forward[i].element().getKey()
+                    .compareTo(it.getKey()) < 0)) {
                 x = x.forward[i];
             }
             update[i] = x; // Track end at level i
@@ -248,12 +266,6 @@ implements Iterable<KVPair<K, V>> {
         public KVPair<K, V> element() {
             return pair;
         }
-        
-//        public String toString() {
-//            //
-//            return "";
-//            //return String.format("%d, %d, %d, %d", x, y, w, h);;
-//        }
 
     }
     

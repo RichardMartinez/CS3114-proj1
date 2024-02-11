@@ -109,11 +109,7 @@ public class Rectangle {
             return false;
         }
         
-        // TODO: Return not (!) this
-        if (this.bottom() <= r2.top()) {
-            return false;
-        }        
-        return true;
+        return !(this.bottom() <= r2.top());
 
     }
 
