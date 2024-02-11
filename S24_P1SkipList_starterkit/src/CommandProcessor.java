@@ -53,7 +53,14 @@ public class CommandProcessor {
         // their Integer equivalent, trimming the whitespace
         if (command.equals("insert")) {
             //Calls insert
-            // data.insert();
+            String name = arr[1];
+            int x = Integer.parseInt(arr[2]);
+            int y = Integer.parseInt(arr[3]);
+            int w = Integer.parseInt(arr[4]);
+            int h = Integer.parseInt(arr[5]);
+            Rectangle rec = new Rectangle(x, y, w, h);
+            KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+            data.insert(pair);
         }
         // calls the appropriate remove method based on the
         // number of white space delimited strings in the line
@@ -88,7 +95,7 @@ public class CommandProcessor {
         else if (command.equals("dump")) {
             // calls the dump method for the database, takes no parameters
             // (see the dump() JavaDoc in the Database class for more information)
-
+            data.dump();
         }
         else {
                 // the first white space delimited string in the line is not

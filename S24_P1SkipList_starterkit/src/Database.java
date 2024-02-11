@@ -52,7 +52,20 @@ public class Database {
         // Delegates the decision mostly to SkipList, only
         // writing the correct message to the console from
         // that
-
+        
+        Rectangle rec = pair.getValue();
+        String name = pair.getKey();
+        if (rec.isInvalid()) {
+            //  Rectangle rejected: (a, -1, -1, 2, 4)
+            String out = String.format("Rectangle rejected: (%s, %s)", name, rec);
+            System.out.println(out);
+            return;
+        }
+        
+        // Insert it
+        list.insert(pair);
+        String out = String.format("Rectangle inserted: (%s, %s)", name, rec);
+        System.out.println(out);
     }
 
 
@@ -134,7 +147,7 @@ public class Database {
      * will all be delegated to the SkipList.
      */
     public void dump() {
-        
+        list.dump();
     }
 
 }

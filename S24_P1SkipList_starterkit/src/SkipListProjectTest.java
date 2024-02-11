@@ -88,6 +88,7 @@ public class SkipListProjectTest extends TestCase {
 				+ "Rectangle rejected: (1, 1, 0, 0)\n"
 				+ "Rectangles intersecting region (-5, -5, 20, 20):\n"
 				+ "";
+		systemOut().clearHistory();
 		System.out.print(dummyConsoleOutput); // TODO: Comment it out later when you actually print to the console.
 		
         // TODO Sets the expected output.
