@@ -77,6 +77,10 @@ public class SkipListTest extends TestCase {
 	       
 	    sl.dump();
 	}
+	
+	public void testEmptyList() {
+	    sl.dump();
+	}
     
 
 }

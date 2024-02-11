@@ -155,6 +155,18 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
         SkipNode x = head;
         
         String out = "";
+        
+        if (size == 0) {
+            // Print head
+            out = String.format("Node with depth %d, Value null", 1);
+            System.out.println(out);
+            
+            // Print size
+            out = String.format("SkipList size is: %d", size);
+            System.out.println(out);
+            return;
+        }
+        
         // Only go at level 0
         while (x.forward[0] != null) {
             // Print x   
