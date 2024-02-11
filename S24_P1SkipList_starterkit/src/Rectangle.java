@@ -168,7 +168,8 @@ public class Rectangle {
      */
     public boolean isInvalid() {
         // Valid Rectangles sit entirely in the 1024 by 1024 "world box"
-        // A rectangle is invalid if any portion of it is outside this box        
+        // A rectangle is invalid if any portion
+        // of it is outside this box        
         // Must be all positive
         if (x < 0) {
             return true;

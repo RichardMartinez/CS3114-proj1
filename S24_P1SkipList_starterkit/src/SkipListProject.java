@@ -42,8 +42,9 @@ public class SkipListProject {
         //System.out.println("This is working in JRE 11!");
         //System.out.println(System.getProperty("java.version"));
         
-    	if (args.length < 1) {
-			System.out.println("Invalid file. No filename in command line arguments");
+        if (args.length < 1) {
+    	    String out = "Invalid file. No filename in command line arguments";
+			System.out.println(out);
 			return;
 		}
         

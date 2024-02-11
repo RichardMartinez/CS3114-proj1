@@ -16,7 +16,8 @@ import student.TestableRandom;
  * @param <V>
  *            Value
  */
-public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KVPair<K, V>> {
+public class SkipList<K extends Comparable<? super K>, V>
+implements Iterable<KVPair<K, V>> {
     private SkipNode head; // First element (Sentinel Node)
     private int size; // number of entries in the Skip List
     private Random rng;
@@ -35,7 +36,8 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
     /** returns a random level (using geometric distribution), minimum of 1 */
 	// TODO Ideally, you should call this method inside other methods 
 	// keep this method private. Since, we do not have any methods to call
-	// this method at this time, we keep this publicly accessible and testable.  
+	// this method at this time, we keep this
+    // publicly accessible and testable.  
 	public int randomLevel() {
 		int level = 1;
 		while (rng.nextBoolean()) 
@@ -84,7 +86,9 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
         // Start at header
         SkipNode x = head;
         for (int i = level; i >= 0; i--) {
-            while ((x.forward[i] != null) && (x.forward[i].element().getKey().compareTo(it.getKey()) < 0)) {
+            boolean notNull = (x.forward[i] != null);
+            boolean lessThanNext = (x.forward[i].element().getKey().compareTo(it.getKey()) < 0);
+            while (notNull && lessThanNext) {
                 x = x.forward[i];
             }
             update[i] = x; // Track end at level i

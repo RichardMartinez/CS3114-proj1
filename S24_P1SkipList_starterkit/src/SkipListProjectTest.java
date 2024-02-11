@@ -60,9 +60,12 @@ public class SkipListProjectTest extends TestCase {
 
         // Sets the test input file.
         // This file contains a list of commands to be executed.
-		String[] testInput = { "solutionTestData/SyntaxTest.txt" }; // Type is array of Strings to match the `main` argument
-		String testOutput = "solutionTestData/SyntaxTestOutput.txt"; // Type is String to match type of `readFile` method 
-		
+    	
+    	// Type is array of Strings to match the `main` argument
+		String[] testInput = { "solutionTestData/SyntaxTest.txt" }; 
+		// Type is String to match type of `readFile` method
+		String testOutput = "solutionTestData/SyntaxTestOutput.txt"; 
+		 
         // TODO Calls the main method of SkipListProject with the test input.
 		// This should print out all the necessary console output.
 		// The main method does NOT print anything console output right now 

@@ -17,7 +17,7 @@ public class SkipListTest extends TestCase {
 
 	private SkipList<String, Rectangle> sl;
 	
-	/*
+	/**
 	 * Set up new SkipList for each test
 	 */
 	public void setUp() {
@@ -60,7 +60,7 @@ public class SkipListTest extends TestCase {
 		assertEquals(expectedLevelValue, randomLevelValue);
 	}
 	
-	/*
+	/**
 	 * Test inserting two rectangles
 	 * and verify they are there
 	 */
@@ -89,7 +89,7 @@ public class SkipListTest extends TestCase {
         assertEquals(elem.getKey(), "HelloWorld2");
 	}
 	
-	/*
+	/**
 	 * Test the dump method prints
 	 * as expected
 	 */
@@ -121,7 +121,7 @@ public class SkipListTest extends TestCase {
         assertFuzzyEquals(expectedOutput, actualOutput);
 	}
 	
-	/*
+	/**
 	 * Test the dump method works
 	 * as expected with an empty list
 	 */
@@ -137,7 +137,7 @@ public class SkipListTest extends TestCase {
         assertFuzzyEquals(expectedOutput, actualOutput);
 	}
 	
-	/*
+	/**
 	 * Test inserting null values
 	 * as last value in list
 	 */
@@ -168,6 +168,9 @@ public class SkipListTest extends TestCase {
         assertNull(elem.getValue());
 	}
 	
+	/**
+	 * Test the hasNext method of the iterator
+	 */
 	public void testIteratorHasNext() {
 	 // Make next levels: 3, 2
         TestableRandom.setNextBooleans(true, true, false, true, false);

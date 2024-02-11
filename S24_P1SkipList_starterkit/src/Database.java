@@ -119,14 +119,15 @@ public class Database {
      *            height of the region
      */
     public void regionsearch(int x, int y, int w, int h) {
-    	
+    
     }
 
     /**
      * Prints out all the rectangles that intersect each other. Note that 
      * it is better not to implement an intersections
      * method in the SkipList class
-     * as the SkipList needs to be agnostic about the fact that it is storing Rectangles. 
+     * as the SkipList needs to be agnostic about
+     * the fact that it is storing Rectangles. 
      */
     public void intersections() {
     	
