@@ -175,7 +175,6 @@ implements Iterable<KVPair<K, V>> {
         
         // Start at head
         SkipNode x = head;
-        
         String out = "";
         
         if (size == 0) {
@@ -190,15 +189,14 @@ implements Iterable<KVPair<K, V>> {
         }
         
         // Only go at level 0
-        while (x.forward[0] != null) {
-            // Print x   
+        while (x != null) {
+            // Print x
             if (x.element().getValue() != null) {
                 out = String.format("Node with depth %d, Value (%s, %s)", 
                     x.level, x.element().getKey(), x.element().getValue());
             }
             else {
-                out = String.format("Node with depth %d, Value null", 
-                    x.level);
+                out = String.format("Node with depth %d, Value null", x.level);
             }
             
             System.out.println(out);
@@ -207,20 +205,8 @@ implements Iterable<KVPair<K, V>> {
             x = x.forward[0];
         }
         
-        // Print x last time
-        if (x.element().getValue() != null) {
-            out = String.format("Node with depth %d, Value (%s, %s)", 
-                x.level, x.element().getKey(), x.element().getValue());
-        }
-        else {
-            out = String.format("Node with depth %d, Value null", x.level);
-        }
-        
-        System.out.println(out);
-        
         // Print size
-        out = String.format("SkipList size is: %d", 
-            size);
+        out = String.format("SkipList size is: %d", size);
         System.out.println(out);
     }
 
