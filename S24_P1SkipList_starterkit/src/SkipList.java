@@ -164,15 +164,15 @@ public class SkipList<K extends Comparable<? super K>, V>
 
 
     /**
-     * Removes the KVPair that is passed in as a parameter and returns true if
-     * the pair was valid and false if not.
+     * Removes the KVPair that is passed in as a parameter and 
+     * returns the KVPair that was removed
      * 
      * @param key
      *            the key to be removed
-     * @return returns true if the removal was successful
+     * @return returns KVPair that was removed
      */
     @SuppressWarnings("unchecked")
-    public boolean remove(K key) {
+    public KVPair<K, V> remove(K key) {
         // Build update array
         // Track the end of each level
         SkipNode[] update = (SkipNode[])Array.newInstance(
@@ -216,10 +216,10 @@ public class SkipList<K extends Comparable<? super K>, V>
             }
             
             size--;
-            return true;
+            return x.element();
         }
         
-        return false;
+        return null;
     }
   
     /**

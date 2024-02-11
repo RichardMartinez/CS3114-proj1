@@ -81,7 +81,20 @@ public class Database {
      *            the name of the rectangle to be removed
      */
     public void remove(String name) {
-    
+        KVPair<String, Rectangle> pair = list.remove(name);
+        if (pair == null) {
+          // Rectangle not removed: b
+          String out = String.format("Rectangle not removed: (%s)", name);
+          System.out.println(out);
+          return;
+        }
+        
+        // Successful remove
+        Rectangle rec = pair.getValue();
+        
+        String out = String.format("Rectangle removed: (%s, %s)",
+            name, rec);
+        System.out.println(out);
 
     }
 
