@@ -62,24 +62,76 @@ public class CommandProcessorTest extends TestCase {
     }
     
     public void testSearch() {
-        // Make next levels: 3, 2
-        TestableRandom.setNextBooleans(true, true, false, true, false);
+        // Reset random
+        TestableRandom.setNextBooleans(null);
         
         cmdProc.processor("insert a 1 0 2 4");
         cmdProc.processor("insert b 2 0 4 8");
-        cmdProc.processor("insert a 4 0 8 16");
+        cmdProc.processor("insert c 4 0 8 16");
         
+        // Search a
         String expectedOutput = "Rectangles found:\n"
-            + "(a, 1, 0, 2, 4)\n"
-            + "(a, 4, 0, 8, 16)\n";
+            + "(a, 1, 0, 2, 4)\n";
         
         systemOut().clearHistory();
         cmdProc.processor("search a");
         
         String actualOutput = systemOut().getHistory();
-        // assertFuzzyEquals(expectedOutput, actualOutput);
+        assertFuzzyEquals(expectedOutput, actualOutput);
         
-        // TODO: Search C (Not found)
+        // Search b
+        expectedOutput = "Rectangles found:\n"
+            + "(b, 2, 0, 4, 8)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("search b");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        // Search c
+        expectedOutput = "Rectangles found:\n"
+            + "(c, 4, 0, 8, 16)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("search c");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        // Search d (not found)
+        expectedOutput = "Rectangle not found (d)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("search d");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+    }
+    
+    public void testSearchMultipleFound() {
+        // Reset random
+        TestableRandom.setNextBooleans(null);
+        
+        cmdProc.processor("insert a 10 10 15 15");
+        cmdProc.processor("insert b 2 0 4 8");
+        cmdProc.processor("insert a 50 21 52 1");
+        cmdProc.processor("insert a 1 1 1 1");
+        
+        
+        String recsFound = "Rectangles found:";
+        String a1 = "(a, 10, 10, 15, 15)";
+        String a2 = "(a, 50, 21, 52, 1)";
+        String a3 = "(a, 1, 1, 1, 1)";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("search a");
+        
+        String actualOutput = systemOut().getHistory();
+        assertTrue(actualOutput.contains(recsFound));
+        assertTrue(actualOutput.contains(a1));
+        assertTrue(actualOutput.contains(a2));
+        assertTrue(actualOutput.contains(a3));
     }
 
 }
