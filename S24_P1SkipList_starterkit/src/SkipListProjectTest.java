@@ -30,7 +30,7 @@ public class SkipListProjectTest extends TestCase {
         return new String(encoded);
     }
 
-	// TODO: implement test methods
+    // TODO: implement test methods
     
     /**
      * Example 1: Tests the main method when the file name is invalid.
@@ -92,11 +92,14 @@ public class SkipListProjectTest extends TestCase {
 				+ "Rectangles intersecting region (-5, -5, 20, 20):\n"
 				+ "";
 		systemOut().clearHistory();
-		System.out.print(dummyConsoleOutput); // TODO: Comment it out later when you actually print to the console.
+		
+		// TODO: Comment it out later when you actually print to the console.
+		System.out.print(dummyConsoleOutput); 
 		
         // TODO Sets the expected output.
 		// Change this to the file that contains expected output.
-        // Then, you can read the output file and set the expected output from that. 
+        // Then, you can read the output file and
+		// set the expected output from that. 
         String expected = readFile(testOutput);
 		
 		// asserts that the expected output matches the system output

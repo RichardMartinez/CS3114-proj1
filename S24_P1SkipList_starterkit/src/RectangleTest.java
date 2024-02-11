@@ -22,6 +22,9 @@ public class RectangleTest extends TestCase {
         rec2 = new Rectangle(10, 10, 5, 5);
     }
     
+    /**
+     * Test the equals method
+     */
     public void testEquals() {
         // Equal to self
         assertTrue(rec.equals(rec));
@@ -57,10 +60,16 @@ public class RectangleTest extends TestCase {
         assertTrue(rec2.equals(rec));
     }
     
+    /**
+     * Test the toString method
+     */
     public void testToString() {
         assertEquals(rec.toString(), "10, 10, 5, 5");
     }
     
+    /**
+     * Test the invalid method
+     */
     public void testIsInvalid() {
         // Default
         assertFalse(rec.isInvalid());
@@ -109,6 +118,9 @@ public class RectangleTest extends TestCase {
         assertTrue(rec.isInvalid());
     }
     
+    /**
+     * Test the intersect method
+     */
     public void testIntersect() {
         // Tests from Spec
         rec = new Rectangle(10, 10, 5, 5);

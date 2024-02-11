@@ -131,7 +131,7 @@ public class Database {
      * the fact that it is storing Rectangles. 
      */
     public void intersections() {
-    	
+        
     }
 
 
@@ -157,7 +157,8 @@ public class Database {
         
         // Iterate and print all
         for (KVPair<String, Rectangle> elem : found) {
-            String out = String.format("(%s, %s)", elem.getKey(), elem.getValue());
+            String out = String.format("(%s, %s)",
+                elem.getKey(), elem.getValue());
             System.out.println(out);
         }
     }

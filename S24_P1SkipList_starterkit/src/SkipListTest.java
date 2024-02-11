@@ -16,7 +16,7 @@ import student.TestableRandom;
 
 public class SkipListTest extends TestCase {
 
-	private SkipList<String, Rectangle> sl;
+    private SkipList<String, Rectangle> sl;
 	
 	/**
 	 * Set up new SkipList for each test
@@ -72,7 +72,8 @@ public class SkipListTest extends TestCase {
 	    // sl is a default constructed SkipList
 	    Rectangle rec = new Rectangle(10, 10, 5, 5);
 	    String name = "HelloWorld";
-	    KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+	    KVPair<String, Rectangle> pair =
+	        new KVPair<String, Rectangle>(name, rec);
 	    sl.insert(pair);
 	    
 	    rec = new Rectangle(20, 20, 5, 5);
@@ -101,7 +102,8 @@ public class SkipListTest extends TestCase {
         // sl is a default constructed SkipList
         Rectangle rec = new Rectangle(1, 0, 2, 4);
         String name = "a";
-        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+        KVPair<String, Rectangle> pair =
+            new KVPair<String, Rectangle>(name, rec);
         sl.insert(pair);
         
         rec = new Rectangle(2, 0, 4, 8);
@@ -149,7 +151,8 @@ public class SkipListTest extends TestCase {
         // sl is a default constructed SkipList
         Rectangle rec = new Rectangle(1, 0, 2, 4);
         String name = "a";
-        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+        KVPair<String, Rectangle> pair =
+            new KVPair<String, Rectangle>(name, rec);
         sl.insert(pair);
         
         rec = null;
@@ -179,7 +182,8 @@ public class SkipListTest extends TestCase {
         // sl is a default constructed SkipList
         Rectangle rec = new Rectangle(1, 0, 2, 4);
         String name = "a";
-        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+        KVPair<String, Rectangle> pair =
+            new KVPair<String, Rectangle>(name, rec);
         sl.insert(pair);
         
         rec = new Rectangle(2, 0, 4, 8);

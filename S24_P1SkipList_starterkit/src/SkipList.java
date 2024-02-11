@@ -17,7 +17,7 @@ import student.TestableRandom;
  *            Value
  */
 public class SkipList<K extends Comparable<? super K>, V>
-implements Iterable<KVPair<K, V>> {
+    implements Iterable<KVPair<K, V>> {
     private SkipNode head; // First element (Sentinel Node)
     private int size; // number of entries in the Skip List
     private Random rng;
@@ -33,11 +33,18 @@ implements Iterable<KVPair<K, V>> {
         level = -1;
     }
 
-    /** returns a random level (using geometric distribution), minimum of 1 */
-	// TODO Ideally, you should call this method inside other methods 
+    /* returns a random level (using geometric distribution), minimum of 1 */
+	// Ideally, you should call this method inside other methods 
 	// keep this method private. Since, we do not have any methods to call
 	// this method at this time, we keep this
-    // publicly accessible and testable.  
+    // publicly accessible and testable. 
+    
+    /**
+     * Returns a random level (using a geometric distribution,
+     * minimum of 1.
+     * 
+     * @return a random level
+     */
 	public int randomLevel() {
 		int temp = 1;
 		while (rng.nextBoolean()) 
@@ -51,6 +58,8 @@ implements Iterable<KVPair<K, V>> {
      * 
      * @param key
      *            key to be searched for
+     * @return list
+     *            an ArrayList of all records found
      */
     public ArrayList<KVPair<K, V>> search(K key) {
         // Return a list of all nodes with the
@@ -158,8 +167,8 @@ implements Iterable<KVPair<K, V>> {
      * Removes the KVPair that is passed in as a parameter and returns true if
      * the pair was valid and false if not.
      * 
-     * @param pair
-     *            the KVPair to be removed
+     * @param key
+     *            the key to be removed
      * @return returns the removed pair if the pair was valid and null if not
      */
 

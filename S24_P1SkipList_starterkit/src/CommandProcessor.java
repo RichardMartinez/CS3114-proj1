@@ -19,9 +19,6 @@ public class CommandProcessor {
      * The constructor for the command processor requires a database instance to
      * exist, so the only constructor takes a database class object to feed
      * commands to.
-     * 
-     * @param dataIn
-     *            the database object to manipulate
      */
     public CommandProcessor() {
         data = new Database();

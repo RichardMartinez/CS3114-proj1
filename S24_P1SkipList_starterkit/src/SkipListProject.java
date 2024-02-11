@@ -43,7 +43,7 @@ public class SkipListProject {
         //System.out.println(System.getProperty("java.version"));
         
         if (args.length < 1) {
-    	    String out = "Invalid file. No filename in command line arguments";
+            String out = "Invalid file. No filename in command line arguments";
 			System.out.println(out);
 			return;
 		}

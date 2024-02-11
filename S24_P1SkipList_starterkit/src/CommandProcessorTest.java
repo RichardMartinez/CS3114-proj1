@@ -25,6 +25,9 @@ public class CommandProcessorTest extends TestCase {
         cmdProc = new CommandProcessor();
     }
     
+    /**
+     * Test the insert method
+     */
     public void testInsert() {
         // Valid insert
         systemOut().clearHistory();
@@ -41,6 +44,9 @@ public class CommandProcessorTest extends TestCase {
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
     
+    /**
+     * Test the dump method
+     */
     public void testDump() {
         // Make next levels: 3, 2
         TestableRandom.setNextBooleans(true, true, false, true, false);
@@ -61,6 +67,9 @@ public class CommandProcessorTest extends TestCase {
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
     
+    /**
+     * Test the search method
+     */
     public void testSearch() {
         // Reset random
         TestableRandom.setNextBooleans(null);
@@ -109,6 +118,10 @@ public class CommandProcessorTest extends TestCase {
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
     
+    /**
+     * Test the search method
+     * assuming multiple records found
+     */
     public void testSearchMultipleFound() {
         // Reset random
         TestableRandom.setNextBooleans(null);
