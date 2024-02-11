@@ -11,11 +11,25 @@ import student.TestCase;
  */
 public class KVPairTest extends TestCase {
     
-
+    private KVPair<String, Integer> pair;
+    
     public void setUp() {
-        // TODO: implement setup
+        pair = new KVPair<String, Integer>("a", 0);
     }
-
-    // TODO: implement tests
+    
+    public void testGetKey() {
+        String key = pair.getKey();
+        assertEquals(key, "a");
+    }
+    
+    public void testGetValue() {
+        int value = (int)pair.getValue();
+        assertEquals(value, 0);
+    }
+    
+    public void testToString() {
+        String repr = pair.toString();
+        assertFuzzyEquals(repr, "(a, 0)");
+    }
 
 }

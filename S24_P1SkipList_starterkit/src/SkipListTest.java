@@ -167,6 +167,38 @@ public class SkipListTest extends TestCase {
         assertEquals(elem.getKey(), "b");
         assertNull(elem.getValue());
 	}
+	
+	public void testIteratorHasNext() {
+	 // Make next levels: 3, 2
+        TestableRandom.setNextBooleans(true, true, false, true, false);
+        
+        // sl is a default constructed SkipList
+        Rectangle rec = new Rectangle(1, 0, 2, 4);
+        String name = "a";
+        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(2, 0, 4, 8);
+        name = "b";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        // Iterator and Test KVPairs
+        Iterator<KVPair<String, Rectangle>> it = sl.iterator();
+        
+        KVPair<String, Rectangle> elem;
+        elem = it.next();
+        assertEquals(elem.getKey(), "a");
+        
+        boolean hasNext = it.hasNext();
+        assertTrue(hasNext);
+        
+        elem = it.next();
+        assertEquals(elem.getKey(), "b");
+        
+        hasNext = it.hasNext();
+        assertFalse(hasNext);
+	}
     
 
 }
