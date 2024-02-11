@@ -290,13 +290,23 @@ public class SkipListTest extends TestCase {
         
         System.out.println("BEFORE DUMP:");
         sl.dump();
+        
+        boolean success = false;
                 
-        sl.remove("b");
-        sl.remove("c");
+        success = sl.remove("b");
+        assertTrue(success);
+        
+        success = sl.remove("c");
+        assertTrue(success);
         
         System.out.println("AFTER DUMP:");
         sl.dump();
         
+        assertTrue(sl.size() == 2);
+        
+        // Try to remove e (not in)
+        success = sl.remove("e");
+        assertFalse(success);
         assertTrue(sl.size() == 2);
 	}
 
