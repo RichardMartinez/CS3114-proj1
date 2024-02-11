@@ -385,5 +385,15 @@ public class SkipListTest extends TestCase {
         assertNotNull(success);
         assertTrue(sl.size() == 0);
 	}
+	
+	/**
+	 * Test searching an empty list returns
+	 * empty arraylist
+	 */
+	public void testSearchEmptyList() {
+	    ArrayList<KVPair<String, Rectangle>> list = sl.search("a");
+	    
+	    assertTrue(list.size() == 0);
+	}
 
 }

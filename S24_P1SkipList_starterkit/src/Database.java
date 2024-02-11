@@ -130,17 +130,17 @@ public class Database {
             elem = it.next();
             Rectangle rec = elem.getValue();
             
-            if (rec != null) {
-                if (testRec.equals(rec)) {
-                    String name = elem.getKey();
-                    list.remove(name);
-                    
-                    String out = String.format("Rectangle removed: (%s, %s)",
-                        name, rec);
-                    System.out.println(out);
-                    return;
-                }
+            //if (rec != null) {
+            if (testRec.equals(rec)) {
+                String name = elem.getKey();
+                list.remove(name);
+                
+                String out = String.format("Rectangle removed: (%s, %s)",
+                    name, rec);
+                System.out.println(out);
+                return;
             }
+            //}
             
             // elem = it.next();
         }

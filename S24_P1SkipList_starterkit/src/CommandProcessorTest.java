@@ -249,6 +249,9 @@ public class CommandProcessorTest extends TestCase {
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
     
+    /**
+     * Test removing all the elements
+     */
     public void testRemoveAll() {
         // Set to 1, 1, 2, 2
         TestableRandom.setNextBooleans(false, false, true, false, true, false);
@@ -275,6 +278,9 @@ public class CommandProcessorTest extends TestCase {
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
     
+    /**
+     * Test removing a simple key
+     */
     public void testSimpleRemoveKey() {
         
         cmdProc.processor("insert a 1 0 2 4");
@@ -293,6 +299,9 @@ public class CommandProcessorTest extends TestCase {
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
     
+    /**
+     * Test removing a simple value
+     */
     public void testSimpleRemoveValue() {
         cmdProc.processor("insert a 1 0 2 4");
         
@@ -307,6 +316,30 @@ public class CommandProcessorTest extends TestCase {
         cmdProc.processor("dump");
         
         String actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+    }
+    
+    /**
+     * Test an invalid command.
+     */
+    public void testInvalidCommand() {
+        String expectedOutput;
+        String actualOutput;
+
+        expectedOutput = "Invalid command.\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove 1 1 1 1 1");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        expectedOutput = "Unrecognized command.\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("failure");
+        
+        actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
 

@@ -80,7 +80,9 @@ public class CommandProcessor {
                 int h = Integer.parseInt(arr[4]);
                 data.remove(x, y, w, h);
             }
-            
+            else {
+                System.out.println("Invalid command.");
+            }
         }
         else if (command.equals("regionsearch")) {
             // calls the regionsearch method for a set of coordinates
