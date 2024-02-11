@@ -17,7 +17,7 @@ import student.TestableRandom;
 public class SkipListTest extends TestCase {
 
     private SkipList<String, Rectangle> sl;
-	
+
 	/**
 	 * Set up new SkipList for each test
 	 */

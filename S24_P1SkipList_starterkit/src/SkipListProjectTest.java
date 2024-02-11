@@ -55,7 +55,7 @@ public class SkipListProjectTest extends TestCase {
     public void testMain() throws IOException {
 
         // Creates an instance of SkipListProject
-    	SkipListProject project = new SkipListProject();
+        SkipListProject project = new SkipListProject();
     	project.toString();
 
         // Sets the test input file.

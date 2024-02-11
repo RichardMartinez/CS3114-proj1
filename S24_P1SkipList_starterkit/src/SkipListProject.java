@@ -44,14 +44,12 @@ public class SkipListProject {
         
         if (args.length < 1) {
             String out = "Invalid file. No filename in command line arguments";
-			System.out.println(out);
-			return;
+            System.out.println(out);
+            return;
 		}
         
     	// the file containing the commands
         File file = null;
-
-        
 
         // Attempts to open the file and scan through it
         try {

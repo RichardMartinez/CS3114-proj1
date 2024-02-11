@@ -34,9 +34,9 @@ public class SkipList<K extends Comparable<? super K>, V>
     }
 
     /* returns a random level (using geometric distribution), minimum of 1 */
-	// Ideally, you should call this method inside other methods 
-	// keep this method private. Since, we do not have any methods to call
-	// this method at this time, we keep this
+    // Ideally, you should call this method inside other methods 
+    // keep this method private. Since, we do not have any methods to call
+    // this method at this time, we keep this
     // publicly accessible and testable. 
     
     /**
