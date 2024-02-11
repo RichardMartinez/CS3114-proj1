@@ -93,7 +93,8 @@ public class CommandProcessor {
         }
         else if (command.equals("search")) {
              // calls the search method for a name of object
-           
+            String name = arr[1];
+            data.search(name);
         }
         else if (command.equals("dump")) {
             // calls the dump method for the database, takes no parameters

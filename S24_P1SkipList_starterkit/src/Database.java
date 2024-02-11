@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -142,7 +143,23 @@ public class Database {
      *            name of the Rectangle to be searched for
      */
     public void search(String name) {
+        ArrayList<KVPair<String, Rectangle>> found = list.search(name);
+        if (found.size() == 0) {
+            // Nothing found
+            // Rectangle not found: (a)
+            String out = String.format("Rectangle not found: (%s)", name);
+            System.out.println(out);
+            return;
+        }
+                
+        // Something found
+        System.out.println("Rectangles found:");
         
+        // Iterate and print all
+        for (KVPair<String, Rectangle> elem : found) {
+            String out = String.format("(%s, %s)", elem.getKey(), elem.getValue());
+            System.out.println(out);
+        }
     }
 
 

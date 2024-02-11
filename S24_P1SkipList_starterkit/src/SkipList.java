@@ -56,17 +56,28 @@ implements Iterable<KVPair<K, V>> {
         // Return a list of all nodes with the
         // specified key
         
+        // TODO: CHANGE THIS TO BE O(logn)
+        // BASED ON OPENDSA
+        // Find first element with matching key,
+        // Any more matching nodes will be directly after
+               
         ArrayList<KVPair<K, V>> list = new ArrayList<KVPair<K, V>>();
+        
+        if (size == 0) {
+            return list;
+        }
         
         // Start at the head
         SkipNode x = head;
         
         while (x != null) {
-            if (x.element().getKey() == key) {
-                // Add it to the list
-                list.add(x.element());
+            if (x.element().getKey() != null) {
+                if (x.element().getKey().compareTo(key) == 0) {
+                    // Add it to the list
+                    list.add(x.element());
+                }
             }
-            
+
             // Advance
             x = x.forward[0];
         }

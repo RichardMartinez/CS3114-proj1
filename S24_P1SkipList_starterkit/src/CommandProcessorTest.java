@@ -60,5 +60,26 @@ public class CommandProcessorTest extends TestCase {
         String actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
+    
+    public void testSearch() {
+        // Make next levels: 3, 2
+        TestableRandom.setNextBooleans(true, true, false, true, false);
+        
+        cmdProc.processor("insert a 1 0 2 4");
+        cmdProc.processor("insert b 2 0 4 8");
+        cmdProc.processor("insert a 4 0 8 16");
+        
+        String expectedOutput = "Rectangles found:\n"
+            + "(a, 1, 0, 2, 4)\n"
+            + "(a, 4, 0, 8, 16)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("search a");
+        
+        String actualOutput = systemOut().getHistory();
+        // assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        // TODO: Search C (Not found)
+    }
 
 }

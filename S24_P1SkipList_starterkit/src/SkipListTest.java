@@ -242,6 +242,13 @@ public class SkipListTest extends TestCase {
         assertEquals(elem.getKey(), "a");
         
         assertFalse(it.hasNext());
+        
+        // Test search not found
+        list = sl.search("c");
+        
+        assertEquals(list.size(), 0);
+        it = list.iterator();
+        assertFalse(it.hasNext());
 	}
 
 }
