@@ -169,13 +169,57 @@ public class SkipList<K extends Comparable<? super K>, V>
      * 
      * @param key
      *            the key to be removed
-     * @return returns the removed pair if the pair was valid and null if not
+     * @return returns true if the removal was successful
      */
-
-    
     @SuppressWarnings("unchecked")
-    public KVPair<K, V> remove(K key) {
-        return null;
+    public boolean remove(K key) {
+        // Build update array
+        // Track the end of each level
+        SkipNode[] update = (SkipNode[])Array.newInstance(
+            SkipList.SkipNode.class, level + 1);
+        
+        // Start at header
+        SkipNode x = head;
+        for (int i = level; i >= 0; i--) {
+            while ((x.forward[i] != null)
+                && (x.forward[i].element().getKey()
+                    .compareTo(key) < 0)) {
+                x = x.forward[i];
+            }
+            update[i] = x; // Track end at level i
+        }
+        
+        // Move forward to actual record if exists
+        x = x.forward[0];
+        
+        if ((x != null) &&
+            (x.element().getKey().compareTo(key) == 0)) {
+            // It exists
+            
+            // For each node in update array
+            // If it points to record, disconnect to null
+            for (int i = level; i >= 0; i--) {
+                SkipNode node = update[i];
+                if (node.forward[i] != null) {
+                    if (node.forward[i].element().getKey()
+                        .compareTo(key) == 0) {
+                        // Disconnect it
+                        node.forward[i] = null;
+                        // Reconnect pointers around record
+                        if (x.forward[0].level >= i) {
+                            node.forward[i] = x.forward[0];
+                        }
+                    }
+                    
+                    
+                }
+            }
+            
+            size--;
+            return true;
+        }
+        
+        return false;
     }
   
     /**
@@ -185,9 +229,9 @@ public class SkipList<K extends Comparable<? super K>, V>
      *            the value of the KVPair to be removed
      * @return returns true if the removal was successful
      */
-    public KVPair<K, V> removeByValue(V val) {
+    public boolean removeByValue(V val) {
   
-        return null;
+        return false;
     }
 
     /**

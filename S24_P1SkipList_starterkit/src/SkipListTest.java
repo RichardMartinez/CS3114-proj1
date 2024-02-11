@@ -254,5 +254,50 @@ public class SkipListTest extends TestCase {
         it = list.iterator();
         assertFalse(it.hasNext());
 	}
+	
+	/**
+	 * Test the remove by key method
+	 */
+	public void testRemove() {
+	    // Set Random to be 1, 1, 2, 2
+        TestableRandom.setNextBooleans(false, false, true, false, true, false);
+        
+        Rectangle rec;
+        String name;
+        KVPair<String, Rectangle> pair;
+        
+        rec = new Rectangle(10, 10, 15, 15);
+        name = "a";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(1, 2, 3, 4);
+        name = "b";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(10, 20, 30, 40);
+        name = "c";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(15, 25, 35, 45);
+        name = "d";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        assertTrue(sl.size() == 4);
+        
+        System.out.println("BEFORE DUMP:");
+        sl.dump();
+                
+        sl.remove("b");
+        sl.remove("c");
+        
+        System.out.println("AFTER DUMP:");
+        sl.dump();
+        
+        assertTrue(sl.size() == 2);
+	}
 
 }
