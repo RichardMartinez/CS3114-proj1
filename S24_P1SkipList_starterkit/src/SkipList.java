@@ -206,12 +206,12 @@ public class SkipList<K extends Comparable<? super K>, V>
                         // Disconnect it
                         node.forward[i] = null;
                         // Reconnect pointers around record
-                        if (x.forward[0].level >= i) {
-                            node.forward[i] = x.forward[0];
+                        if (x.forward[0] != null) {
+                            if (x.forward[0].level >= i) {
+                                node.forward[i] = x.forward[0];
+                            }
                         }
                     }
-                    
-                    
                 }
             }
             
@@ -220,18 +220,6 @@ public class SkipList<K extends Comparable<? super K>, V>
         }
         
         return null;
-    }
-  
-    /**
-     * Removes a KVPair with the specified value.
-     * 
-     * @param val
-     *            the value of the KVPair to be removed
-     * @return returns true if the removal was successful
-     */
-    public boolean removeByValue(V val) {
-  
-        return false;
     }
 
     /**

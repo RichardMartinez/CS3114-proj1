@@ -113,7 +113,42 @@ public class Database {
      *            height of the rectangle to be removed
      */
     public void remove(int x, int y, int w, int h) {
+        // Generate Test Rectangle
+        Rectangle testRec = new Rectangle(x, y, w, h);
         
+        if (testRec.isInvalid()) {
+            // Rectangle rejected: (-1, -1, 2, 4)
+            String out = String.format("Rectangle rejected: (%s)", testRec);
+            System.out.println(out);
+            return;
+        }
+        
+        Iterator<KVPair<String, Rectangle>> it = list.iterator();
+        KVPair<String, Rectangle> elem;
+        
+        while (it.hasNext()) {
+            elem = it.next();
+            Rectangle rec = elem.getValue();
+            
+            if (rec != null) {
+                if (testRec.equals(rec)) {
+                    String name = elem.getKey();
+                    list.remove(name);
+                    
+                    String out = String.format("Rectangle removed: (%s, %s)",
+                        name, rec);
+                    System.out.println(out);
+                    return;
+                }
+            }
+            
+            // elem = it.next();
+        }
+        
+        // Not found
+        // Rectangle not found: (2, 0, 4, 8)
+        String out = String.format("Rectangle not found: (%s)", testRec);
+        System.out.println(out);
     }
 
 

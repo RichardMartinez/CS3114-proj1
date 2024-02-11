@@ -186,5 +186,128 @@ public class CommandProcessorTest extends TestCase {
         actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
+    
+    /**
+     * Test remove by value method
+     */
+    public void testRemoveByValue() {
+        // Set to 1, 1, 2, 2
+        TestableRandom.setNextBooleans(false, false, true, false, true, false);
+        
+        cmdProc.processor("insert a 1 0 2 4");
+        cmdProc.processor("insert b 2 0 4 8");
+        cmdProc.processor("insert c 4 0 8 16");
+        cmdProc.processor("insert d 8 0 16 32");
+        
+        String expectedOutput;
+        
+        expectedOutput = "Rectangle removed: (a, 1, 0, 2, 4)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove 1 0 2 4");
+        
+        String actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        expectedOutput = "Rectangle removed: (c, 4, 0, 8, 16)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove 4 0 8 16");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        // Not found remove
+        expectedOutput = "Rectangle not found: (1, 1, 1, 1)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove 1 1 1 1");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        // Invalid remove
+        expectedOutput = "Rectangle rejected: (-1, 1, 1, 1)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove -1 1 1 1");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        // Use dump to verify that they were actually removed
+        expectedOutput = "SkipList dump:\n"
+            + "Node with depth 2, Value null\n"
+            + "Node with depth 1, Value (b, 2, 0, 4, 8)\n"
+            + "Node with depth 2, Value (d, 8, 0, 16, 32)\n"
+            + "SkipList size is: 2";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("dump");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+    }
+    
+    public void testRemoveAll() {
+        // Set to 1, 1, 2, 2
+        TestableRandom.setNextBooleans(false, false, true, false, true, false);
+        
+        cmdProc.processor("insert a 1 0 2 4");
+        cmdProc.processor("insert b 2 0 4 8");
+        cmdProc.processor("insert c 4 0 8 16");
+        cmdProc.processor("insert d 8 0 16 32");
+        
+        cmdProc.processor("remove d");
+        cmdProc.processor("remove a");
+        cmdProc.processor("remove 4 0 8 16");
+        cmdProc.processor("remove 2 0 4 8");
+        
+        // Use dump to verify that they were actually removed
+        String expectedOutput = "SkipList dump:\n"
+            + "Node with depth 1, Value null\n"
+            + "SkipList size is: 0";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("dump");
+        
+        String actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+    }
+    
+    public void testSimpleRemoveKey() {
+        
+        cmdProc.processor("insert a 1 0 2 4");
+        
+        cmdProc.processor("remove a");
+        
+        // Use dump to verify that they were actually removed
+        String expectedOutput = "SkipList dump:\n"
+            + "Node with depth 1, Value null\n"
+            + "SkipList size is: 0";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("dump");
+        
+        String actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+    }
+    
+    public void testSimpleRemoveValue() {
+        cmdProc.processor("insert a 1 0 2 4");
+        
+        cmdProc.processor("remove 1 0 2 4");
+        
+        // Use dump to verify that they were actually removed
+        String expectedOutput = "SkipList dump:\n"
+            + "Node with depth 1, Value null\n"
+            + "SkipList size is: 0";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("dump");
+        
+        String actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+    }
 
 }

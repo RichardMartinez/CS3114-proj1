@@ -74,7 +74,11 @@ public class CommandProcessor {
             else if (numParam == 4) {
                 // Calls remove by coordinate, converting string
                 // integers into their Integer equivalent minus whitespace
-                
+                int x = Integer.parseInt(arr[1]);
+                int y = Integer.parseInt(arr[2]);
+                int w = Integer.parseInt(arr[3]);
+                int h = Integer.parseInt(arr[4]);
+                data.remove(x, y, w, h);
             }
             
         }

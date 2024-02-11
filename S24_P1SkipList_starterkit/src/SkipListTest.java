@@ -288,9 +288,6 @@ public class SkipListTest extends TestCase {
         
         assertTrue(sl.size() == 4);
         
-        System.out.println("BEFORE DUMP:");
-        sl.dump();
-        
         KVPair<String, Rectangle> success;
                 
         success = sl.remove("b");
@@ -298,16 +295,95 @@ public class SkipListTest extends TestCase {
         
         success = sl.remove("c");
         assertNotNull(success);
-        
-        System.out.println("AFTER DUMP:");
-        sl.dump();
-        
+
         assertTrue(sl.size() == 2);
         
         // Try to remove e (not in)
         success = sl.remove("e");
         assertNull(success);
         assertTrue(sl.size() == 2);
+	}
+	
+	/**
+	 * Test removing all the elements
+	 */
+	public void testRemoveAll() {
+	    // Set Random to be 1, 1, 2, 2
+        TestableRandom.setNextBooleans(false, false, true, false, true, false);
+        
+        Rectangle rec;
+        String name;
+        KVPair<String, Rectangle> pair;
+        
+        rec = new Rectangle(10, 10, 15, 15);
+        name = "a";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(1, 2, 3, 4);
+        name = "b";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(10, 20, 30, 40);
+        name = "c";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(15, 25, 35, 45);
+        name = "d";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        System.out.println("BEFORE DUMP:");
+        sl.dump();
+        
+        KVPair<String, Rectangle> success;
+        
+        assertTrue(sl.size() == 4);
+        
+        success = sl.remove("a");
+        assertNotNull(success);
+        assertTrue(sl.size() == 3);
+        
+        success = sl.remove("b");
+        assertNotNull(success);
+        assertTrue(sl.size() == 2);
+        
+        success = sl.remove("c");
+        assertNotNull(success);
+        assertTrue(sl.size() == 1);
+        
+        success = sl.remove("d");
+        assertNotNull(success);
+        assertTrue(sl.size() == 0);
+        
+        System.out.println("AFTER DUMP:");
+        sl.dump();
+	}
+	
+	/**
+	 * Test a simple remove case
+	 */
+	public void testSimpleRemove() {
+	    Rectangle rec;
+        String name;
+        KVPair<String, Rectangle> pair;
+        
+        assertTrue(sl.size() == 0);
+        
+        rec = new Rectangle(10, 10, 15, 15);
+        name = "a";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        assertTrue(sl.size() == 1);
+        
+        KVPair<String, Rectangle> success;
+                
+        success = sl.remove("a");
+        assertNotNull(success);
+        assertTrue(sl.size() == 0);
 	}
 
 }
