@@ -10,7 +10,8 @@ import java.util.Iterator;
  * SkipList method after some preparation.
  * 
  * Also note that the Database class will have a clearer role in Project2, 
- * where we will have two data structures. The Database class will then determine 
+ * where we will have two data structures.
+ * The Database class will then determine 
  * which command should be directed to which data structure.  
  * 
  * @author CS Staff
@@ -25,7 +26,8 @@ public class Database {
     // see the KVPair class for more information
     private SkipList<String, Rectangle> list;
     
-    //This is an Iterator object over the SkipList to loop through it from outside the class.
+    //This is an Iterator object over the SkipList
+    //to loop through it from outside the class.
     //You will need to define an extra Iterator for the intersections method.
     private Iterator<KVPair<String, Rectangle>> itr1;
     
@@ -57,7 +59,8 @@ public class Database {
         String name = pair.getKey();
         if (rec.isInvalid()) {
             //  Rectangle rejected: (a, -1, -1, 2, 4)
-            String out = String.format("Rectangle rejected: (%s, %s)", name, rec);
+            String out =
+                String.format("Rectangle rejected: (%s, %s)", name, rec);
             System.out.println(out);
             return;
         }
@@ -121,7 +124,8 @@ public class Database {
 
     /**
      * Prints out all the rectangles that intersect each other. Note that 
-     * it is better not to implement an intersections method in the SkipList class
+     * it is better not to implement an intersections
+     * method in the SkipList class
      * as the SkipList needs to be agnostic about the fact that it is storing Rectangles. 
      */
     public void intersections() {

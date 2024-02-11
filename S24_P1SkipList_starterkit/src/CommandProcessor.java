@@ -32,7 +32,8 @@ public class CommandProcessor {
      * This method parses keywords in the line and calls methods in the
      * database as required. Each line command will be specified by one of the
      * keywords to perform the actions. 
-     * These actions are performed on specified objects and include insert, remove,
+     * These actions are performed on specified objects
+     * and include insert, remove,
      * regionsearch, search, and dump. If the command in the file line is not
      * one of these, an appropriate message will be written in the console. This
      * processor method is called for each line in the file. Note that the
@@ -59,7 +60,8 @@ public class CommandProcessor {
             int w = Integer.parseInt(arr[4]);
             int h = Integer.parseInt(arr[5]);
             Rectangle rec = new Rectangle(x, y, w, h);
-            KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+            KVPair<String, Rectangle> pair = 
+                new KVPair<String, Rectangle>(name, rec);
             data.insert(pair);
         }
         // calls the appropriate remove method based on the
@@ -85,7 +87,8 @@ public class CommandProcessor {
         }
         else if (command.equals("intersections")) {
             // calls the intersections method, no parameters to be passed
-            // (see the intersections JavaDoc in the Database class for more information)
+            // (see the intersections JavaDoc in the 
+            // Database class for more information)
            
         }
         else if (command.equals("search")) {
@@ -94,7 +97,8 @@ public class CommandProcessor {
         }
         else if (command.equals("dump")) {
             // calls the dump method for the database, takes no parameters
-            // (see the dump() JavaDoc in the Database class for more information)
+            // (see the dump() JavaDoc in the
+            // Database class for more information)
             data.dump();
         }
         else {

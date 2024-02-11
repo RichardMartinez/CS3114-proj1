@@ -16,7 +16,7 @@ import student.TestableRandom;
  * @param <V>
  *            Value
  */
-public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KVPair<K,V>> {
+public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KVPair<K, V>> {
     private SkipNode head; // First element (Sentinel Node)
     private int size; // number of entries in the Skip List
     private Random rng;
@@ -276,7 +276,7 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
     }
 
 	@Override
-	public Iterator<KVPair<K,V>> iterator() {
+	public Iterator<KVPair<K, V>> iterator() {
 		// TODO Auto-generated method stub
 		return new SkipListIterator();
 	}

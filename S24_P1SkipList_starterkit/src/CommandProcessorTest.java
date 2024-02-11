@@ -22,7 +22,7 @@ public class CommandProcessorTest extends TestCase {
      * creat a database here for use in each test case.
      */
     public void setUp() {
-    	cmdProc = new CommandProcessor();
+        cmdProc = new CommandProcessor();
     }
     
     public void testInsert() {
