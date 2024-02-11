@@ -62,7 +62,7 @@ public class SkipListTest extends TestCase {
 	
 	public void testInsert() {
 	    // Reset Testable Random
-	    //TestableRandom.setNextBooleans(null);
+	    TestableRandom.setNextBooleans(null);
 	    
 	    // sl is a default constructed SkipList
 	    Rectangle rec = new Rectangle(10, 10, 5, 5);
@@ -75,11 +75,81 @@ public class SkipListTest extends TestCase {
         pair = new KVPair<String, Rectangle>(name, rec);
         sl.insert(pair);
 	       
-	    sl.dump();
+	    // Iterator and Test KVPairs
+        Iterator<KVPair<String, Rectangle>> it = sl.iterator();
+        
+        KVPair<String, Rectangle> elem;
+        elem = it.next();
+        assertEquals(elem.getKey(), "HelloWorld");
+        elem = it.next();
+        assertEquals(elem.getKey(), "HelloWorld2");
 	}
 	
-	public void testEmptyList() {
-	    sl.dump();
+	public void testDump() {
+	    // Make next levels: 3, 2
+        TestableRandom.setNextBooleans(true, true, false, true, false);
+        
+        // sl is a default constructed SkipList
+        Rectangle rec = new Rectangle(1, 0, 2, 4);
+        String name = "a";
+        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = new Rectangle(2, 0, 4, 8);
+        name = "b";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        String expectedOutput = "SkipList dump:\n"
+            + "Node with depth 3, Value null\n"
+            + "Node with depth 3, Value (a, 1, 0, 2, 4)\n"
+            + "Node with depth 2, Value (b, 2, 0, 4, 8)\n"
+            + "SkipList size is: 2\n";
+        
+        systemOut().clearHistory();
+        sl.dump();
+        
+        String actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+	}
+	
+	public void testEmptyListDump() {
+	    String expectedOutput = "SkipList dump:\n"
+            + "Node with depth 1, Value null\n"
+            + "SkipList size is: 0\n";
+        
+        systemOut().clearHistory();
+        sl.dump();
+        
+        String actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+	}
+	
+	public void testInsertNullValues() {
+	 // Make next levels: 3, 2
+        TestableRandom.setNextBooleans(null);
+        
+        // sl is a default constructed SkipList
+        Rectangle rec = new Rectangle(1, 0, 2, 4);
+        String name = "a";
+        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+        rec = null;
+        name = "b";
+        pair = new KVPair<String, Rectangle>(name, rec);
+        sl.insert(pair);
+        
+     // Iterator and Test KVPairs
+        Iterator<KVPair<String, Rectangle>> it = sl.iterator();
+        
+        KVPair<String, Rectangle> elem;
+        elem = it.next();
+        assertEquals(elem.getKey(), "a");
+        assertNotNull(elem.getValue());
+        elem = it.next();
+        assertEquals(elem.getKey(), "b");
+        assertNull(elem.getValue());
 	}
     
 

@@ -191,8 +191,7 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
                 x.level, x.element().getKey(), x.element().getValue());
         }
         else {
-            out = String.format("Node with depth %d, Value null", 
-                x.level);
+            out = String.format("Node with depth %d, Value null", x.level);
         }
         
         System.out.println(out);
