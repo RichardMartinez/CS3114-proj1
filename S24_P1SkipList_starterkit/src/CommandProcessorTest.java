@@ -146,5 +146,45 @@ public class CommandProcessorTest extends TestCase {
         assertTrue(actualOutput.contains(a2));
         assertTrue(actualOutput.contains(a3));
     }
+    
+    /**
+     * Test the remove method
+     */
+    public void testRemove() {
+        // Reset random
+        TestableRandom.setNextBooleans(null);
+        
+        cmdProc.processor("insert a 1 0 2 4");
+        cmdProc.processor("insert b 2 0 4 8");
+        cmdProc.processor("insert c 4 0 8 16");
+        cmdProc.processor("insert d 8 0 16 32");
+        
+        String expectedOutput;
+        
+        expectedOutput = "Rectangle removed: (a, 1, 0, 2, 4)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove a");
+        
+        String actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        expectedOutput = "Rectangle removed: (c, 4, 0, 8, 16)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove c");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        // Try to remove e (not found)
+        expectedOutput = "Rectangle not removed: e\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove e");
+        
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+    }
 
 }

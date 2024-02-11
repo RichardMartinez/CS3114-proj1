@@ -84,7 +84,7 @@ public class Database {
         KVPair<String, Rectangle> pair = list.remove(name);
         if (pair == null) {
           // Rectangle not removed: b
-          String out = String.format("Rectangle not removed: (%s)", name);
+          String out = String.format("Rectangle not removed: %s", name);
           System.out.println(out);
           return;
         }
