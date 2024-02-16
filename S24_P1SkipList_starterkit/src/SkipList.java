@@ -192,38 +192,52 @@ public class SkipList<K extends Comparable<? super K>, V>
         // Move forward to actual record if exists
         x = x.forward[0];
         
-        if ((x != null) &&
-            (x.element().getKey().compareTo(key) == 0)) {
-            // It exists
-            
-            // For each node in update array
-            // If it points to record, disconnect to null
-            for (int i = level; i >= 0; i--) {
-                SkipNode node = update[i];
-                if (node.forward[i] != null) {
-                    if (node.forward[i].element().getKey()
-                        .compareTo(key) == 0) {
-                        // Disconnect it
-                        node.forward[i] = null;
-                        // Reconnect pointers around record
-                        if (x.forward[0] != null) {
-                            if (x.forward[0].level >= i) {
-                                node.forward[i] = x.forward[0];
-                            }
-                        }
-                    }
-                }
-            }
-            
-            size--;
-            return x.element();
+        // If x is null, or key does not match, return null
+        if (x == null) {
+            return null;
+        }
+        if (x.element().getKey().compareTo(key) != 0) {
+            return null;
         }
         
-        return null;
+        // We know it exists at this point
+        
+        // For each node in update array
+        // If it points to record, disconnect to null
+        // Then re-point it around x
+        for (int i = level; i >= 0; i--) {
+            SkipNode node = update[i];
+            
+            // Ignore nodes that have null pointers,
+            // or that do not point to x
+            if (node.forward[i] == null) {
+                continue;
+            }
+            if (node.forward[i].element().getKey()
+                .compareTo(key) != 0) {
+                continue;
+            }
+            
+            // We know this node points to x
+            // Disconnect it
+            node.forward[i] = null;
+            
+            // Reconnect pointers around x
+            if (x.forward[0] == null) {
+                continue;
+            }
+            if (x.forward[0].level >= i) {
+                node.forward[i] = x.forward[0];
+            }
+        }
+        
+        size--;
+        return x.element();        
     }
 
     /**
-     * Prints out the SkipList in a human readable format to the console.
+     * Prints out the SkipList in a human readable
+     * format to the console.
      */
     public void dump() {
         System.out.println("SkipList dump:");
