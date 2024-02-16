@@ -168,7 +168,7 @@ public class Database {
     public void regionsearch(int x, int y, int w, int h) {
         // Generate Region Rectangle
         Rectangle region = new Rectangle(x, y, w, h);
-        
+
         // If w or h is invalid, reject the rectangle
         if (region.getW() <= 0 || region.getH() <= 0) {
             // Rectangle rejected: (0, 0, -10, 20)
@@ -176,31 +176,32 @@ public class Database {
             System.out.println(out);
             return;
         }
-        
+
         // Print region
         // Rectangles intersecting region (0, 500, 20, 1):
-        String out = String.format("Rectangles intersecting region (%s):", region);
+        String out = String.format("Rectangles intersecting region (%s):",
+            region);
         System.out.println(out);
-        
+
         // Loop over all rectangles in the list
         // Call special intersectRegion() method
         // if true -> print it
         Iterator<KVPair<String, Rectangle>> it = list.iterator();
         KVPair<String, Rectangle> elem;
-        
+
         while (it.hasNext()) {
             elem = it.next();
             Rectangle rec = elem.getValue();
             String name = elem.getKey();
-            
+
             if (rec.intersectRegion(region)) {
                 // Print it (a, 0, 0, 1000, 10)
                 out = String.format("(%s, %s)", name, rec);
                 System.out.println(out);
             }
-            
+
         }
-        
+
     }
 
 
@@ -212,6 +213,41 @@ public class Database {
      * the fact that it is storing Rectangles.
      */
     public void intersections() {
+        // Print header
+        System.out.println("Intersection pairs:");
+
+        // Use two iterators to loop over list in O(n^2)
+        Iterator<KVPair<String, Rectangle>> it1 = list.iterator();
+        KVPair<String, Rectangle> elem1;
+
+        Iterator<KVPair<String, Rectangle>> it2 = list.iterator();
+        KVPair<String, Rectangle> elem2;
+
+        while (it1.hasNext()) {
+            elem1 = it1.next();
+            String name1 = elem1.getKey();
+            Rectangle rec1 = elem1.getValue();
+
+            it2 = list.iterator();
+            while (it2.hasNext()) {
+                elem2 = it2.next();
+                String name2 = elem2.getKey();
+                Rectangle rec2 = elem2.getValue();
+
+                // TODO: This name1 == name2 could skip over
+                // two intersecting rectangles that have
+                // the same name but represent different rec's
+                if (!name1.equals(name2)) {
+                    if (rec1.intersect(rec2)) {
+                        // Print out the pair
+                        // (a, 10, 10, 15, 15 | b, 11, 11, 5, 5)
+                        String out = String.format("(%s, %s | %s, %s)", name1,
+                            rec1, name2, rec2);
+                        System.out.println(out);
+                    }
+                }
+            }
+        }
 
     }
 

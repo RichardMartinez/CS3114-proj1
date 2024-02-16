@@ -97,7 +97,7 @@ public class CommandProcessor {
             // calls the intersections method, no parameters to be passed
             // (see the intersections JavaDoc in the
             // Database class for more information)
-
+            data.intersections();
         }
         else if (command.equals("search")) {
             // calls the search method for a name of object

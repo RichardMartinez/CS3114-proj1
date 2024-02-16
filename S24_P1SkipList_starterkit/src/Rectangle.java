@@ -112,8 +112,8 @@ public class Rectangle {
         return !(this.bottom() <= r2.top());
 
     }
-    
-    
+
+
     /**
      * Checks if the invoking rectangle intersects with region.
      * 

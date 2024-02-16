@@ -344,7 +344,8 @@ public class CommandProcessorTest extends TestCase {
         actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
-    
+
+
     /**
      * Test the intersect method
      */
@@ -352,53 +353,97 @@ public class CommandProcessorTest extends TestCase {
         // Based on the spec
         cmdProc.processor("insert a 0 0 1000 10");
         cmdProc.processor("insert b 0 0 910 10");
-        
+
         String expectedOutput;
         String actualOutput;
-                
-        expectedOutput = "Rectangles intersecting region (900, 5, 1000, 1000):\n"
-            + "(a, 0, 0, 1000, 10)\n"
-            + "(b, 0, 0, 910, 10)\n";
-        
+
+        expectedOutput =
+            "Rectangles intersecting region (900, 5, 1000, 1000):\n"
+                + "(a, 0, 0, 1000, 10)\n" + "(b, 0, 0, 910, 10)\n";
+
         systemOut().clearHistory();
         cmdProc.processor("regionsearch 900 5 1000 1000");
 
         actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
-        
+
         expectedOutput = "Rectangles intersecting region (0, 500, 20, 1):\n";
-        
+
         systemOut().clearHistory();
         cmdProc.processor("regionsearch 0 500 20 1");
 
         actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
-        
+
         // Invalid region
         expectedOutput = "Rectangle rejected: (0, 0, -10, 20)\n";
-        
+
         systemOut().clearHistory();
         cmdProc.processor("regionsearch 0 0 -10 20");
 
         actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
-        
+
         // Other invalid regions
         expectedOutput = "Rectangle rejected: (0, 0, -10, -20)\n";
-        
+
         systemOut().clearHistory();
         cmdProc.processor("regionsearch 0 0 -10 -20");
 
         actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
-        
+
         expectedOutput = "Rectangle rejected: (0, 0, 10, -20)\n";
-        
+
         systemOut().clearHistory();
         cmdProc.processor("regionsearch 0 0 10 -20");
 
         actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
-    
+
+
+    /**
+     * Test the intersections method
+     */
+    public void testIntersections() {
+        cmdProc.processor("insert a 10 10 15 15");
+        cmdProc.processor("insert b 11 11 5 5");
+        cmdProc.processor("insert c 0 0 1000 10");
+        cmdProc.processor("insert d 0 0 10 1000");
+
+        String intersectsFound = "Intersection pairs:";
+        String ab = "(a, 10, 10, 15, 15 | b, 11, 11, 5, 5)";
+        String ba = "(b, 11, 11, 5, 5 | a, 10, 10, 15, 15)";
+        String cd = "(c, 0, 0, 1000, 10 | d, 0, 0, 10, 1000)";
+        String dc = "(d, 0, 0, 10, 1000 | c, 0, 0, 1000, 10)";
+
+        systemOut().clearHistory();
+        cmdProc.processor("intersections");
+
+        String actualOutput = systemOut().getHistory();
+
+        assertTrue(actualOutput.contains(intersectsFound));
+        assertTrue(actualOutput.contains(ab));
+        assertTrue(actualOutput.contains(ba));
+        assertTrue(actualOutput.contains(cd));
+        assertTrue(actualOutput.contains(dc));
+
+    }
+
+
+    /**
+     * Test intersections method with empty list
+     */
+    public void testIntersectionsEmptyList() {
+        String intersectsFound = "Intersection pairs:\n";
+
+        systemOut().clearHistory();
+        cmdProc.processor("intersections");
+
+        String actualOutput = systemOut().getHistory();
+
+        assertEquals(actualOutput, intersectsFound);
+    }
+
 }
