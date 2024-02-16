@@ -223,21 +223,29 @@ public class Database {
         Iterator<KVPair<String, Rectangle>> it2 = list.iterator();
         KVPair<String, Rectangle> elem2;
 
+        // Keep track of both indices
+        // To avoid checking self, but also
+        // allow same names
+        int index1 = 0;
+        int index2 = 0;
+
         while (it1.hasNext()) {
             elem1 = it1.next();
             String name1 = elem1.getKey();
             Rectangle rec1 = elem1.getValue();
 
+            index1++;
+
             it2 = list.iterator();
+            index2 = 0;
             while (it2.hasNext()) {
                 elem2 = it2.next();
                 String name2 = elem2.getKey();
                 Rectangle rec2 = elem2.getValue();
 
-                // TODO: This name1 == name2 could skip over
-                // two intersecting rectangles that have
-                // the same name but represent different rec's
-                if (!name1.equals(name2)) {
+                index2++;
+
+                if (index1 != index2) {
                     if (rec1.intersect(rec2)) {
                         // Print out the pair
                         // (a, 10, 10, 15, 15 | b, 11, 11, 5, 5)

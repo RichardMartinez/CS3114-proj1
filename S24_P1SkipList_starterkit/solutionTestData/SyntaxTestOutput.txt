@@ -6,7 +6,7 @@ Rectangle rejected: (inExistRec_0, 1, 1, -1, -2)
 Rectangle rejected: (11, 11, 0, 0)
 Intersection pairs:
 SkipList dump:
-Node has depth 1, Value (null)
+Node with depth 1, Value (null)
 SkipList size is: 0
 Rectangle not found: r_r
 Rectangle not removed: r_r
