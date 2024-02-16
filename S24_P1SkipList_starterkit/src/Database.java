@@ -166,7 +166,41 @@ public class Database {
      *            height of the region
      */
     public void regionsearch(int x, int y, int w, int h) {
-
+        // Generate Region Rectangle
+        Rectangle region = new Rectangle(x, y, w, h);
+        
+        // If w or h is invalid, reject the rectangle
+        if (region.getW() <= 0 || region.getH() <= 0) {
+            // Rectangle rejected: (0, 0, -10, 20)
+            String out = String.format("Rectangle rejected: (%s)", region);
+            System.out.println(out);
+            return;
+        }
+        
+        // Print region
+        // Rectangles intersecting region (0, 500, 20, 1):
+        String out = String.format("Rectangles intersecting region (%s):", region);
+        System.out.println(out);
+        
+        // Loop over all rectangles in the list
+        // Call special intersectRegion() method
+        // if true -> print it
+        Iterator<KVPair<String, Rectangle>> it = list.iterator();
+        KVPair<String, Rectangle> elem;
+        
+        while (it.hasNext()) {
+            elem = it.next();
+            Rectangle rec = elem.getValue();
+            String name = elem.getKey();
+            
+            if (rec.intersectRegion(region)) {
+                // Print it (a, 0, 0, 1000, 10)
+                out = String.format("(%s, %s)", name, rec);
+                System.out.println(out);
+            }
+            
+        }
+        
     }
 
 

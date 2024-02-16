@@ -333,14 +333,12 @@ public class SkipList<K extends Comparable<? super K>, V>
 
         @Override
         public boolean hasNext() {
-            // TODO Auto-generated method stub
             return current.forward[0] != null;
         }
 
 
         @Override
         public KVPair<K, V> next() {
-            // TODO Auto-generated method stub
             KVPair<K, V> elem = current.forward[0].element();
             current = current.forward[0];
             return elem;
@@ -350,7 +348,6 @@ public class SkipList<K extends Comparable<? super K>, V>
 
     @Override
     public Iterator<KVPair<K, V>> iterator() {
-        // TODO Auto-generated method stub
         return new SkipListIterator();
     }
 

@@ -183,4 +183,82 @@ public class RectangleTest extends TestCase {
         assertFalse(rec.intersect(rec2));
         assertFalse(rec2.intersect(rec));
     }
+    
+    /**
+     * Test the intersect method
+     */
+    public void testIntersectRegion() {
+        // Take most of the tests from regular intersect
+        // Tests from Spec
+        rec = new Rectangle(10, 10, 5, 5);
+        rec2 = new Rectangle(15, 10, 5, 5);
+        assertFalse(rec.intersectRegion(rec2));
+        assertFalse(rec2.intersectRegion(rec));
+
+        rec2 = new Rectangle(14, 10, 5, 5);
+        assertTrue(rec.intersectRegion(rec2));
+        assertTrue(rec2.intersectRegion(rec));
+
+        rec2 = new Rectangle(11, 11, 1, 1);
+        assertTrue(rec.intersectRegion(rec2));
+        assertTrue(rec2.intersectRegion(rec));
+        
+        // Same Rectangle
+        rec2 = new Rectangle(10, 10, 5, 5);
+        assertTrue(rec.intersectRegion(rec2));
+        assertTrue(rec2.intersectRegion(rec));
+        
+        // Invalid this
+        rec = new Rectangle(10, 10, 0, 5);
+        rec2 = new Rectangle(10, 10, 5, 5);
+        assertFalse(rec.intersectRegion(rec2));
+        assertFalse(rec2.intersectRegion(rec));
+        
+        // One is too far left
+        rec = new Rectangle(5, 10, 5, 5);
+        rec2 = new Rectangle(10, 10, 5, 5);
+        assertFalse(rec.intersectRegion(rec2));
+        assertFalse(rec2.intersectRegion(rec));
+
+        rec = new Rectangle(10, 10, 5, 5);
+        rec2 = new Rectangle(5, 10, 5, 5);
+        assertFalse(rec.intersectRegion(rec2));
+        assertFalse(rec2.intersectRegion(rec));
+
+        // One is too far down
+        rec = new Rectangle(10, 10, 5, 5);
+        rec2 = new Rectangle(10, 15, 5, 5);
+        assertFalse(rec.intersectRegion(rec2));
+        assertFalse(rec2.intersectRegion(rec));
+
+        rec = new Rectangle(10, 15, 5, 5);
+        rec2 = new Rectangle(10, 10, 5, 5);
+        assertFalse(rec.intersectRegion(rec2));
+        assertFalse(rec2.intersectRegion(rec));
+        
+        // Region can be invalid, but still pass
+        Rectangle region;
+        
+        rec = new Rectangle(0, 0, 5, 5);
+        region = new Rectangle(-1, 0, 10, 10);
+        assertTrue(rec.intersectRegion(region));
+        assertFalse(rec.intersect(region));
+        
+        rec = new Rectangle(0, 0, 5, 5);
+        region = new Rectangle(0, -1, 10, 10);
+        assertTrue(rec.intersectRegion(region));
+        assertFalse(rec.intersect(region));
+        
+        // Rec is invalid, but they would have
+        // intersected otherwise
+        rec = new Rectangle(-1, 0, 5, 5);
+        region = new Rectangle(0, -1, 10, 10);
+        assertFalse(rec.intersectRegion(region));
+        assertFalse(rec.intersect(region));
+        
+        rec = new Rectangle(0, -1, 5, 5);
+        region = new Rectangle(0, -1, 10, 10);
+        assertFalse(rec.intersectRegion(region));
+        assertFalse(rec.intersect(region));
+    }
 }

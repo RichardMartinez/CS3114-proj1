@@ -344,5 +344,61 @@ public class CommandProcessorTest extends TestCase {
         actualOutput = systemOut().getHistory();
         assertFuzzyEquals(expectedOutput, actualOutput);
     }
+    
+    /**
+     * Test the intersect method
+     */
+    public void testIntersectRegion() {
+        // Based on the spec
+        cmdProc.processor("insert a 0 0 1000 10");
+        cmdProc.processor("insert b 0 0 910 10");
+        
+        String expectedOutput;
+        String actualOutput;
+                
+        expectedOutput = "Rectangles intersecting region (900, 5, 1000, 1000):\n"
+            + "(a, 0, 0, 1000, 10)\n"
+            + "(b, 0, 0, 910, 10)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("regionsearch 900 5 1000 1000");
 
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        expectedOutput = "Rectangles intersecting region (0, 500, 20, 1):\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("regionsearch 0 500 20 1");
+
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        // Invalid region
+        expectedOutput = "Rectangle rejected: (0, 0, -10, 20)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("regionsearch 0 0 -10 20");
+
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        // Other invalid regions
+        expectedOutput = "Rectangle rejected: (0, 0, -10, -20)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("regionsearch 0 0 -10 -20");
+
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+        
+        expectedOutput = "Rectangle rejected: (0, 0, 10, -20)\n";
+        
+        systemOut().clearHistory();
+        cmdProc.processor("regionsearch 0 0 10 -20");
+
+        actualOutput = systemOut().getHistory();
+        assertFuzzyEquals(expectedOutput, actualOutput);
+    }
+    
 }

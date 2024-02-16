@@ -87,7 +87,11 @@ public class CommandProcessor {
         else if (command.equals("regionsearch")) {
             // calls the regionsearch method for a set of coordinates
             // the string integers in the line will be trimmed of whitespace
-
+            int x = Integer.parseInt(arr[1]);
+            int y = Integer.parseInt(arr[2]);
+            int w = Integer.parseInt(arr[3]);
+            int h = Integer.parseInt(arr[4]);
+            data.regionsearch(x, y, w, h);
         }
         else if (command.equals("intersections")) {
             // calls the intersections method, no parameters to be passed

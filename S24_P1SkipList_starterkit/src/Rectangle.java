@@ -112,6 +112,40 @@ public class Rectangle {
         return !(this.bottom() <= r2.top());
 
     }
+    
+    
+    /**
+     * Checks if the invoking rectangle intersects with region.
+     * 
+     * @param region
+     *            Rectangle parameter
+     * @return true if the rectangle intersects with region, false if not
+     */
+    public boolean intersectRegion(Rectangle region) {
+        // One is invalid
+        if (this.isInvalid()) {
+            return false;
+        }
+
+        // It does not matter if region is invalid
+
+        // One is too far left
+        if (this.right() <= region.left()) {
+            return false;
+        }
+
+        if (region.right() <= this.left()) {
+            return false;
+        }
+
+        // One is too far down
+        if (region.bottom() <= this.top()) {
+            return false;
+        }
+
+        return !(this.bottom() <= region.top());
+
+    }
 
 
     /**
