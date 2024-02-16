@@ -8,8 +8,8 @@ import student.TestableRandom;
  * Also test passing improper command to ensure
  * all class functionalities work as intended.
  * 
- * @author <your_name>
- * @version <version_no>
+ * @author Richard Martinez
+ * @version 1
  */
 public class CommandProcessorTest extends TestCase {
 

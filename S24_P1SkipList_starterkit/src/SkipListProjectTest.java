@@ -30,8 +30,6 @@ public class SkipListProjectTest extends TestCase {
         return new String(encoded);
     }
 
-    // TODO: implement test methods
-
 
     /**
      * Example 1: Tests the main method when the file name is invalid.

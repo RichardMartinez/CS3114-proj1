@@ -30,6 +30,25 @@ import java.util.Scanner;
  * @version 2024-01-22
  */
 public class SkipListProject {
+    /*
+     * Compiled using JRE 11 for CS 3114
+     * Operating System: Windows 11
+     * IDE: Eclipse
+     * Date Completed: Feb 15, 2024
+     * Created By: Richard Martinez
+     * 
+     * This project maintains a database of Rectangle objects in a
+     * randomized data structure called a SkipList. The idea behind
+     * the SkipList is to allow for amoritized O(logn) operations
+     * similar to a Binary Search Tree (BST).
+     * 
+     * The functionality is defined in terms of inputs and outputs.
+     * The input to the program is a text file containing a list of
+     * instructions to the database.
+     * The output is a list of responses printed to standard out.
+     * 
+     * Internally, each Rectangle is maintained using the SkipList.
+     */
 
     /**
      * The entry point of the application.

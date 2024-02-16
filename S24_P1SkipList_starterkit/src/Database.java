@@ -124,11 +124,11 @@ public class Database {
         Iterator<KVPair<String, Rectangle>> it = list.iterator();
         KVPair<String, Rectangle> elem;
 
+        // Iterate until found rectangle then remove it
         while (it.hasNext()) {
             elem = it.next();
             Rectangle rec = elem.getValue();
 
-            // if (rec != null) {
             if (testRec.equals(rec)) {
                 String name = elem.getKey();
                 list.remove(name);
@@ -138,9 +138,6 @@ public class Database {
                 System.out.println(out);
                 return;
             }
-            // }
-
-            // elem = it.next();
         }
 
         // Not found
@@ -189,6 +186,7 @@ public class Database {
         Iterator<KVPair<String, Rectangle>> it = list.iterator();
         KVPair<String, Rectangle> elem;
 
+        // Iterate and print if rec intersects the region
         while (it.hasNext()) {
             elem = it.next();
             Rectangle rec = elem.getValue();
@@ -229,6 +227,7 @@ public class Database {
         int index1 = 0;
         int index2 = 0;
 
+        // Iterate using an inner and outer loop
         while (it1.hasNext()) {
             elem1 = it1.next();
             String name1 = elem1.getKey();
@@ -245,6 +244,7 @@ public class Database {
 
                 index2++;
 
+                // Only compare rectangles if they are different
                 if (index1 != index2) {
                     if (rec1.intersect(rec2)) {
                         // Print out the pair

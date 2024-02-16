@@ -44,6 +44,8 @@ public class SkipList<K extends Comparable<? super K>, V>
      * Returns a random level (using a geometric distribution,
      * minimum of 1.
      * 
+     * NOTE: Should this be a minimum of 0?
+     * 
      * @return a random level
      */
     public int randomLevel() {
@@ -86,6 +88,8 @@ public class SkipList<K extends Comparable<? super K>, V>
         // Move to actual record if it exists
         x = x.forward[0];
 
+        // If multiple matching records, they will be right next
+        // to each other. So add all of them to the list
         while ((x != null) && (x.element().getKey().compareTo(key) == 0)) {
             // Add it to list
             list.add(x.element());
