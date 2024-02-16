@@ -10,10 +10,10 @@ import java.util.Iterator;
  * Many of these methods will simply call the appropriate version of the
  * SkipList method after some preparation.
  * 
- * Also note that the Database class will have a clearer role in Project2, 
+ * Also note that the Database class will have a clearer role in Project2,
  * where we will have two data structures.
- * The Database class will then determine 
- * which command should be directed to which data structure.  
+ * The Database class will then determine
+ * which command should be directed to which data structure.
  * 
  * @author CS Staff
  * 
@@ -26,12 +26,11 @@ public class Database {
     // a rectangle object, these are stored in a KVPair,
     // see the KVPair class for more information
     private SkipList<String, Rectangle> list;
-    
-    //This is an Iterator object over the SkipList
-    //to loop through it from outside the class.
-    //You will need to define an extra Iterator for the intersections method.
+
+    // This is an Iterator object over the SkipList
+    // to loop through it from outside the class.
+    // You will need to define an extra Iterator for the intersections method.
     private Iterator<KVPair<String, Rectangle>> itr1;
-    
 
     /**
      * The constructor for this class initializes a SkipList object with String
@@ -55,17 +54,17 @@ public class Database {
         // Delegates the decision mostly to SkipList, only
         // writing the correct message to the console from
         // that
-        
+
         Rectangle rec = pair.getValue();
         String name = pair.getKey();
         if (rec.isInvalid()) {
-            //  Rectangle rejected: (a, -1, -1, 2, 4)
-            String out =
-                String.format("Rectangle rejected: (%s, %s)", name, rec);
+            // Rectangle rejected: (a, -1, -1, 2, 4)
+            String out = String.format("Rectangle rejected: (%s, %s)", name,
+                rec);
             System.out.println(out);
             return;
         }
-        
+
         // Insert it
         list.insert(pair);
         String out = String.format("Rectangle inserted: (%s, %s)", name, rec);
@@ -83,17 +82,16 @@ public class Database {
     public void remove(String name) {
         KVPair<String, Rectangle> pair = list.remove(name);
         if (pair == null) {
-          // Rectangle not removed: b
-          String out = String.format("Rectangle not removed: %s", name);
-          System.out.println(out);
-          return;
+            // Rectangle not removed: b
+            String out = String.format("Rectangle not removed: %s", name);
+            System.out.println(out);
+            return;
         }
-        
+
         // Successful remove
         Rectangle rec = pair.getValue();
-        
-        String out = String.format("Rectangle removed: (%s, %s)",
-            name, rec);
+
+        String out = String.format("Rectangle removed: (%s, %s)", name, rec);
         System.out.println(out);
 
     }
@@ -115,36 +113,36 @@ public class Database {
     public void remove(int x, int y, int w, int h) {
         // Generate Test Rectangle
         Rectangle testRec = new Rectangle(x, y, w, h);
-        
+
         if (testRec.isInvalid()) {
             // Rectangle rejected: (-1, -1, 2, 4)
             String out = String.format("Rectangle rejected: (%s)", testRec);
             System.out.println(out);
             return;
         }
-        
+
         Iterator<KVPair<String, Rectangle>> it = list.iterator();
         KVPair<String, Rectangle> elem;
-        
+
         while (it.hasNext()) {
             elem = it.next();
             Rectangle rec = elem.getValue();
-            
-            //if (rec != null) {
+
+            // if (rec != null) {
             if (testRec.equals(rec)) {
                 String name = elem.getKey();
                 list.remove(name);
-                
-                String out = String.format("Rectangle removed: (%s, %s)",
-                    name, rec);
+
+                String out = String.format("Rectangle removed: (%s, %s)", name,
+                    rec);
                 System.out.println(out);
                 return;
             }
-            //}
-            
+            // }
+
             // elem = it.next();
         }
-        
+
         // Not found
         // Rectangle not found: (2, 0, 4, 8)
         String out = String.format("Rectangle not found: (%s)", testRec);
@@ -168,18 +166,19 @@ public class Database {
      *            height of the region
      */
     public void regionsearch(int x, int y, int w, int h) {
-    
+
     }
 
+
     /**
-     * Prints out all the rectangles that intersect each other. Note that 
+     * Prints out all the rectangles that intersect each other. Note that
      * it is better not to implement an intersections
      * method in the SkipList class
      * as the SkipList needs to be agnostic about
-     * the fact that it is storing Rectangles. 
+     * the fact that it is storing Rectangles.
      */
     public void intersections() {
-        
+
     }
 
 
@@ -199,14 +198,14 @@ public class Database {
             System.out.println(out);
             return;
         }
-                
+
         // Something found
         System.out.println("Rectangles found:");
-        
+
         // Iterate and print all
         for (KVPair<String, Rectangle> elem : found) {
-            String out = String.format("(%s, %s)",
-                elem.getKey(), elem.getValue());
+            String out = String.format("(%s, %s)", elem.getKey(), elem
+                .getValue());
             System.out.println(out);
         }
     }

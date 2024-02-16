@@ -90,25 +90,25 @@ public class Rectangle {
         if (this.isInvalid()) {
             return false;
         }
-        
+
         if (r2.isInvalid()) {
             return false;
         }
-        
+
         // One is too far left
         if (this.right() <= r2.left()) {
             return false;
         }
-        
+
         if (r2.right() <= this.left()) {
             return false;
         }
-             
+
         // One is too far down
         if (r2.bottom() <= this.top()) {
             return false;
         }
-        
+
         return !(this.bottom() <= r2.top());
 
     }
@@ -128,10 +128,11 @@ public class Rectangle {
         boolean sameY = this.getY() == rec.getY();
         boolean sameW = this.getW() == rec.getW();
         boolean sameH = this.getH() == rec.getH();
-        
+
         return (sameX && sameY && sameW && sameH);
     }
-    
+
+
     /**
      * Checks, if the invoking rectangle has the same coordinates as rec.
      * 
@@ -152,7 +153,7 @@ public class Rectangle {
      * @return a human readable string containing information about the
      *         rectangle
      */
-    public String toString() {               
+    public String toString() {
         return String.format("%d, %d, %d, %d", x, y, w, h);
     }
 
@@ -165,52 +166,57 @@ public class Rectangle {
     public boolean isInvalid() {
         // Valid Rectangles sit entirely in the 1024 by 1024 "world box"
         // A rectangle is invalid if any portion
-        // of it is outside this box        
+        // of it is outside this box
         // Must be all positive
         if (x < 0) {
             return true;
         }
-        
+
         if (y < 0) {
             return true;
         }
-        
+
         if (w <= 0) {
             return true;
         }
-        
+
         if (h <= 0) {
             return true;
         }
-        
+
         boolean leftValid = insideWorldBox(left());
         boolean topValid = insideWorldBox(top());
         boolean rightValid = insideWorldBox(right());
         boolean bottomValid = insideWorldBox(bottom());
-        
+
         boolean valid = leftValid && topValid && rightValid && bottomValid;
-        
+
         return !valid;
     }
-    
+
+
     private boolean insideWorldBox(int a) {
         return (a >= 0) && (a <= 1024);
     }
-    
+
+
     private int left() {
         return x;
     }
-    
+
+
     private int top() {
         return y;
     }
-    
+
+
     private int right() {
         return x + w;
     }
-    
+
+
     private int bottom() {
         return y + h;
     }
-    
+
 }

@@ -10,16 +10,17 @@ import student.TestCase;
  * @version 2024.1
  */
 public class KVPairTest extends TestCase {
-    
+
     private KVPair<String, Integer> pair;
-    
+
     /**
      * Set up KVPair for tests
      */
     public void setUp() {
         pair = new KVPair<String, Integer>("a", 0);
     }
-    
+
+
     /**
      * Test the get key method
      */
@@ -27,7 +28,8 @@ public class KVPairTest extends TestCase {
         String key = pair.getKey();
         assertEquals(key, "a");
     }
-    
+
+
     /**
      * Test the get value method
      */
@@ -35,7 +37,8 @@ public class KVPairTest extends TestCase {
         int value = (int)pair.getValue();
         assertEquals(value, 0);
     }
-    
+
+
     /**
      * Test the toString method
      */
